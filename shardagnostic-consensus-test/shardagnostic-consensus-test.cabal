@@ -1,0 +1,301 @@
+name:                  shardagnostic-consensus-test
+version:               0.1.0.0
+synopsis:              Tests of the consensus layer
+-- description:
+license:               Apache-2.0
+license-files:
+  LICENSE
+  NOTICE
+copyright:             2021 The-Blockchain-Company
+author:                TBCO Engineering Team
+maintainer:            operations@tbco.io
+category:              Network
+build-type:            Simple
+cabal-version:         >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/The-Blockchain-Company/shardagnostic-network
+
+library
+  hs-source-dirs:      src
+  exposed-modules:
+                       Test.ThreadNet.General
+                       Test.ThreadNet.Network
+                       Test.ThreadNet.Ref.PBFT
+                       Test.ThreadNet.Rekeying
+                       Test.ThreadNet.TxGen
+                       Test.ThreadNet.Util
+                       Test.ThreadNet.Util.Expectations
+                       Test.ThreadNet.Util.HasCreator
+                       Test.ThreadNet.Util.NodeJoinPlan
+                       Test.ThreadNet.Util.NodeRestarts
+                       Test.ThreadNet.Util.NodeToNodeVersion
+                       Test.ThreadNet.Util.NodeTopology
+                       Test.ThreadNet.Util.Seed
+
+                       Test.Util.Blob
+                       Test.Util.BoolProps
+                       Test.Util.ChunkInfo
+                       Test.Util.Classify
+                       Test.Util.Corruption
+                       Test.Util.FileLock
+                       Test.Util.FS.Sim.Error
+                       Test.Util.FS.Sim.FsTree
+                       Test.Util.FS.Sim.MockFS
+                       Test.Util.FS.Sim.Pure
+                       Test.Util.FS.Sim.STM
+                       Test.Util.HardFork.Future
+                       Test.Util.HardFork.OracularClock
+                       Test.Util.InvertedMap
+                       Test.Util.LogicalClock
+                       Test.Util.MockChain
+                       Test.Util.Nightly
+                       Test.Util.Orphans.Arbitrary
+                       Test.Util.Orphans.IOLike
+                       Test.Util.Orphans.NoThunks
+                       Test.Util.Orphans.SignableRepresentation
+                       Test.Util.Orphans.Slotting.Arbitrary
+                       Test.Util.Orphans.ToExpr
+                       Test.Util.Paths
+                       Test.Util.QSM
+                       Test.Util.QuickCheck
+                       Test.Util.Range
+                       Test.Util.RefEnv
+                       Test.Util.Serialisation.Golden
+                       Test.Util.Serialisation.Roundtrip
+                       Test.Util.Shrink
+                       Test.Util.SOP
+                       Test.Util.Slots
+                       Test.Util.Split
+                       Test.Util.Stream
+                       Test.Util.TestBlock
+                       Test.Util.Time
+                       Test.Util.Tracer
+                       Test.Util.WithEq
+
+  build-depends:       base              >=4.9 && <4.15
+                     , base16-bytestring
+                     , bytestring        >=0.10  && <0.11
+                     , bcc-crypto-class
+                     , bcc-prelude
+                     , bcc-slotting
+                     , cborg             >=0.2.2 && <0.3
+                     , containers        >=0.5   && <0.7
+                     , contra-tracer
+                     , deepseq
+                     , directory
+                     , fgl
+                     , file-embed
+                     , filepath
+                     , generics-sop
+                     , graphviz
+                     , mtl               >=2.2   && <2.3
+                     , nothunks
+                     , QuickCheck
+                     , quickcheck-state-machine
+                     , quiet             >=0.2   && <0.3
+                     , random
+                     , serialise         >=0.2   && <0.3
+                     , sop-core
+                     , strict-containers
+                     , tasty
+                     , tasty-golden
+                     , tasty-quickcheck
+                     , template-haskell
+                     , text              >=1.2   && <1.3
+                     , time
+                     , transformers
+                     , tree-diff
+                     , utf8-string
+
+                     , io-classes
+                     , io-sim
+                     , shardagnostic-network
+                     , shardagnostic-network-framework
+                     , shardagnostic-consensus
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+
+test-suite test-consensus
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test-consensus
+  main-is:             Main.hs
+  other-modules:
+                       Test.Consensus.BlockchainTime.Simple
+                       Test.Consensus.HardFork.Forecast
+                       Test.Consensus.HardFork.History
+                       Test.Consensus.HardFork.Infra
+                       Test.Consensus.HardFork.Summary
+                       Test.Consensus.HardFork.Combinator
+                       Test.Consensus.HardFork.Combinator.A
+                       Test.Consensus.HardFork.Combinator.B
+                       Test.Consensus.MiniProtocol.ChainSync.Client
+                       Test.Consensus.MiniProtocol.LocalStateQuery.Server
+                       Test.Consensus.Mempool
+                       Test.Consensus.Node
+                       Test.Consensus.ResourceRegistry
+                       Test.Consensus.Util.MonadSTM.RAWLock
+                       Test.Consensus.Util.Versioned
+
+  build-depends:       base
+                     , binary
+                     , bytestring
+                     , bcc-binary
+                     , bcc-crypto-class
+                     , bcc-slotting
+                     , cborg
+                     , containers
+                     , contra-tracer
+                     , directory
+                     , generics-sop
+                     , mtl
+                     , nothunks
+                     , QuickCheck
+                     , quickcheck-state-machine
+                     , quiet
+                     , serialise
+                     , sop-core
+                     , tasty
+                     , tasty-hunit
+                     , tasty-quickcheck
+                     , temporary
+                     , time
+                     , tree-diff
+
+                     , io-classes
+                     , io-sim
+                     , typed-protocols
+                     , shardagnostic-network
+                     , shardagnostic-network-framework
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-mock
+                     , shardagnostic-consensus-test
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+                       -threaded
+                       -rtsopts
+
+test-suite test-storage
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test-storage
+  main-is:             Main.hs
+  other-modules:
+                       Test.Shardagnostic.Storage
+                       Test.Shardagnostic.Storage.ChainDB
+                       Test.Shardagnostic.Storage.ChainDB.Iterator
+                       Test.Shardagnostic.Storage.ChainDB.GcSchedule
+                       Test.Shardagnostic.Storage.ChainDB.Model
+                       Test.Shardagnostic.Storage.ChainDB.Model.Test
+                       Test.Shardagnostic.Storage.ChainDB.Paths
+                       Test.Shardagnostic.Storage.ChainDB.StateMachine
+                       Test.Shardagnostic.Storage.FS
+                       Test.Shardagnostic.Storage.FS.StateMachine
+                       Test.Shardagnostic.Storage.ImmutableDB
+                       Test.Shardagnostic.Storage.ImmutableDB.Mock
+                       Test.Shardagnostic.Storage.ImmutableDB.Model
+                       Test.Shardagnostic.Storage.ImmutableDB.Primary
+                       Test.Shardagnostic.Storage.ImmutableDB.StateMachine
+                       Test.Shardagnostic.Storage.LedgerDB
+                       Test.Shardagnostic.Storage.LedgerDB.DiskPolicy
+                       Test.Shardagnostic.Storage.LedgerDB.InMemory
+                       Test.Shardagnostic.Storage.LedgerDB.OnDisk
+                       Test.Shardagnostic.Storage.LedgerDB.OrphanArbitrary
+                       Test.Shardagnostic.Storage.Orphans
+                       Test.Shardagnostic.Storage.TestBlock
+                       Test.Shardagnostic.Storage.VolatileDB
+                       Test.Shardagnostic.Storage.VolatileDB.Mock
+                       Test.Shardagnostic.Storage.VolatileDB.Model
+                       Test.Shardagnostic.Storage.VolatileDB.StateMachine
+
+  build-depends:       base
+                     , bifunctors
+                     , binary
+                     , bytestring
+                     , bcc-crypto-class
+                     , bcc-slotting
+                     , cborg
+                     , containers
+                     , contra-tracer
+                     , directory
+                     , generics-sop
+                     , hashable
+                     , mtl
+                     , nothunks
+                     , pretty-show
+                     , QuickCheck
+                     , quickcheck-state-machine >=0.7.0
+                     , random
+                     , serialise
+                     , strict-containers
+                     , tasty
+                     , tasty-hunit
+                     , tasty-quickcheck
+                     , temporary
+                     , text
+                     , time
+                     , transformers
+                     , tree-diff
+                     , vector
+
+                     , io-classes
+                     , io-sim
+                     , shardagnostic-network
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-test
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+
+test-suite test-infra
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test-infra
+  main-is:             Main.hs
+  other-modules:
+                       Test.ThreadNet.Util.Tests
+                       Test.Util.Split.Tests
+
+  build-depends:       base
+                     , QuickCheck
+                     , tasty
+                     , tasty-quickcheck
+
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-test
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts

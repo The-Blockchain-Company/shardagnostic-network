@@ -1,0 +1,387 @@
+name:                shardagnostic-network
+version:             0.1.0.0
+synopsis:            A networking layer for the Shardagnostic blockchain protocol
+-- description:
+license:             Apache-2.0
+license-files:
+  LICENSE
+  NOTICE
+copyright:           2021 The-Blockchain-Company
+author:              Alexander Vieth, Marcin Szamotulski, rmourey_jr Coutts
+maintainer:
+category:            Network
+build-type:          Simple
+extra-source-files:
+  ChangeLog.md
+data-files:
+  test-cddl/specs/handshake-node-to-node.cddl
+  test-cddl/specs/handshake-node-to-client.cddl
+  test-cddl/specs/chain-sync.cddl
+  test-cddl/specs/block-fetch.cddl
+  test-cddl/specs/tx-submission.cddl
+  test-cddl/specs/tx-submission2.cddl
+  test-cddl/specs/keep-alive.cddl
+  test-cddl/specs/local-tx-submission.cddl
+  test-cddl/specs/local-state-query.cddl
+cabal-version:       >=1.10
+
+flag asserts
+  description: Enable assertions
+  manual:      False
+  default:     False
+
+Flag ipv6
+  Description: Enable IPv6 test cases
+  Manual: True
+  -- Default to False since travis lacks IPv6 support
+  Default: False
+
+flag cddl
+  Description: Enable CDDL based tests of the CBOR encoding
+  Manual: True
+  -- These tests need the cddl and the cbor-diag Ruby-package
+  Default: True
+
+source-repository head
+  type:     git
+  location: https://github.com/The-Blockchain-Company/shardagnostic-network
+
+library
+  hs-source-dirs:      src
+
+  -- At this experiment/prototype stage everything is exposed.
+  -- This has to be tidied up once the design becomes clear.
+  exposed-modules:     Shardagnostic.Network.AnchoredFragment
+                       Shardagnostic.Network.AnchoredSeq
+                       Shardagnostic.Network.Block
+                       Shardagnostic.Network.BlockFetch
+                       Shardagnostic.Network.BlockFetch.Client
+                       Shardagnostic.Network.BlockFetch.ClientRegistry
+                       Shardagnostic.Network.BlockFetch.ClientState
+                       Shardagnostic.Network.BlockFetch.Decision
+                       Shardagnostic.Network.BlockFetch.DeltaQ
+                       Shardagnostic.Network.BlockFetch.State
+                       Shardagnostic.Network.Counter
+                       Shardagnostic.Network.DeltaQ
+                       Shardagnostic.Network.Diffusion
+                       Shardagnostic.Network.KeepAlive
+                       Shardagnostic.Network.Magic
+                       Shardagnostic.Network.NodeToNode
+                       Shardagnostic.Network.NodeToNode.Version
+                       Shardagnostic.Network.NodeToClient
+                       Shardagnostic.Network.NodeToClient.Version
+                       Shardagnostic.Network.Tracers
+                       Shardagnostic.Network.Point
+                       Shardagnostic.Network.PeerSelection.Types
+                       Shardagnostic.Network.PeerSelection.EstablishedPeers
+                       Shardagnostic.Network.PeerSelection.KnownPeers
+                       Shardagnostic.Network.PeerSelection.LedgerPeers
+                       Shardagnostic.Network.PeerSelection.LocalRootPeers
+                       Shardagnostic.Network.PeerSelection.RootPeersDNS
+                       Shardagnostic.Network.PeerSelection.Governor
+                       Shardagnostic.Network.Protocol.ChainSync.Client
+                       Shardagnostic.Network.Protocol.ChainSync.ClientPipelined
+                       Shardagnostic.Network.Protocol.ChainSync.Codec
+                       Shardagnostic.Network.Protocol.ChainSync.Server
+                       Shardagnostic.Network.Protocol.ChainSync.Type
+                       Shardagnostic.Network.Protocol.ChainSync.PipelineDecision
+                       -- ChainSync.Examples module is needed by test-consensus
+                       Shardagnostic.Network.Protocol.ChainSync.Examples
+                       Shardagnostic.Network.Protocol.BlockFetch.Type
+                       Shardagnostic.Network.Protocol.BlockFetch.Client
+                       Shardagnostic.Network.Protocol.BlockFetch.Server
+                       Shardagnostic.Network.Protocol.BlockFetch.Codec
+                       Shardagnostic.Network.Protocol.LocalStateQuery.Client
+                       Shardagnostic.Network.Protocol.LocalStateQuery.Codec
+                       -- LocalStateQuery.Examples module is needed by test-consensus
+                       Shardagnostic.Network.Protocol.LocalStateQuery.Examples
+                       Shardagnostic.Network.Protocol.LocalStateQuery.Server
+                       Shardagnostic.Network.Protocol.LocalStateQuery.Type
+                       Shardagnostic.Network.Protocol.LocalTxMonitor.Type
+                       Shardagnostic.Network.Protocol.TipSample.Type
+                       Shardagnostic.Network.Protocol.TipSample.Client
+                       Shardagnostic.Network.Protocol.TipSample.Server
+                       Shardagnostic.Network.Protocol.TipSample.Codec
+                       Shardagnostic.Network.Protocol.TxSubmission.Type
+                       Shardagnostic.Network.Protocol.TxSubmission.Client
+                       Shardagnostic.Network.Protocol.TxSubmission.Server
+                       Shardagnostic.Network.Protocol.TxSubmission.Codec
+                       Shardagnostic.Network.Protocol.TxSubmission2.Type
+                       Shardagnostic.Network.Protocol.TxSubmission2.Codec
+                       Shardagnostic.Network.Protocol.LocalTxSubmission.Type
+                       Shardagnostic.Network.Protocol.LocalTxSubmission.Client
+                       Shardagnostic.Network.Protocol.LocalTxSubmission.Server
+                       Shardagnostic.Network.Protocol.LocalTxSubmission.Codec
+                       Shardagnostic.Network.Protocol.KeepAlive.Type
+                       Shardagnostic.Network.Protocol.KeepAlive.Client
+                       Shardagnostic.Network.Protocol.KeepAlive.Server
+                       Shardagnostic.Network.Protocol.KeepAlive.Codec
+                       Shardagnostic.Network.Protocol.Trans.Hello.Type
+                       Shardagnostic.Network.Protocol.Trans.Hello.Codec
+                       Shardagnostic.Network.Protocol.Trans.Hello.Util
+                       Shardagnostic.Network.TxSubmission.Inbound
+                       Shardagnostic.Network.TxSubmission.Mempool.Reader
+                       Shardagnostic.Network.TxSubmission.Outbound
+  other-modules:       Shardagnostic.Network.PeerSelection.Governor.ActivePeers
+                       Shardagnostic.Network.PeerSelection.Governor.EstablishedPeers
+                       Shardagnostic.Network.PeerSelection.Governor.KnownPeers
+                       Shardagnostic.Network.PeerSelection.Governor.Monitor
+                       Shardagnostic.Network.PeerSelection.Governor.RootPeers
+                       Shardagnostic.Network.PeerSelection.Governor.Types
+
+  default-language:    Haskell2010
+  other-extensions:    BangPatterns,
+                       DataKinds,
+                       EmptyCase,
+                       ExistentialQuantification,
+                       FlexibleContexts,
+                       FlexibleInstances,
+                       FunctionalDependencies,
+                       GADTs,
+                       GADTSyntax,
+                       GeneralizedNewtypeDeriving,
+                       MultiParamTypeClasses,
+                       NamedFieldPuns,
+                       OverloadedStrings,
+                       PolyKinds,
+                       RankNTypes,
+                       RecordWildCards,
+                       ScopedTypeVariables,
+                       TemplateHaskell,
+                       TupleSections,
+                       TypeApplications,
+                       TypeFamilies,
+                       TypeInType
+  build-depends:       base              >=4.9 && <4.15,
+                       async             >=2.2 && <2.3,
+                       base16-bytestring,
+                       bytestring        >=0.10 && <0.11,
+                       cborg             >=0.2.1 && <0.3,
+                       containers,
+                       directory,
+                       dns,
+                       fingertree        >=0.1.4.2 && <0.2,
+                       iproute,
+                       nothunks,
+                       network           >=3.1.2 && <3.2,
+                       psqueues          >=0.2.3 && <0.3,
+                       serialise         >=0.2 && <0.3,
+                       random,
+                       strict-containers,
+
+                       bcc-binary,
+                       bcc-prelude,
+                       bcc-slotting,
+                       contra-tracer,
+                       monoidal-synchronisation,
+
+                       io-classes        >=0.1 && < 0.3,
+                       network-mux       >=0.1 && <1.0,
+                       shardagnostic-network-framework
+                                         >=0.1 && <1.0,
+                       typed-protocols   >=0.1 && < 1.0
+
+  ghc-options:         -Wall
+                       -Wno-unticked-promoted-constructors
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+  if flag(asserts)
+    ghc-options:       -fno-ignore-asserts
+
+  -- Still in the lib for now as they're used in shardagnostic-consensus.
+  -- They should be moved to the separate test lib if they're still needed.
+  exposed-modules:     Shardagnostic.Network.MockChain.Chain
+                       Shardagnostic.Network.MockChain.ProducerState
+                       Shardagnostic.Network.Testing.ConcreteBlock
+  build-depends:       hashable          >=1.2 && <1.4,
+                       text              >=1.2 && <1.3,
+                       time              >=1.9.1 && <1.11
+
+library shardagnostic-protocol-tests
+  hs-source-dirs:      protocol-tests
+  default-language:    Haskell2010
+  exposed-modules:     Shardagnostic.Network.Protocol.BlockFetch.Direct
+                       Shardagnostic.Network.Protocol.BlockFetch.Examples
+                       Shardagnostic.Network.Protocol.BlockFetch.Test
+                       Shardagnostic.Network.Protocol.ChainSync.Direct
+                       Shardagnostic.Network.Protocol.ChainSync.DirectPipelined
+                       Shardagnostic.Network.Protocol.ChainSync.ExamplesPipelined
+                       Shardagnostic.Network.Protocol.ChainSync.Test
+                       Shardagnostic.Network.Protocol.Handshake.Direct
+                       Shardagnostic.Network.Protocol.Handshake.Test
+                       Shardagnostic.Network.Protocol.LocalStateQuery.Direct
+                       Shardagnostic.Network.Protocol.LocalStateQuery.Test
+                       Shardagnostic.Network.Protocol.LocalTxSubmission.Direct
+                       Shardagnostic.Network.Protocol.LocalTxSubmission.Examples
+                       Shardagnostic.Network.Protocol.LocalTxSubmission.Test
+                       Shardagnostic.Network.Protocol.TipSample.Direct
+                       Shardagnostic.Network.Protocol.TipSample.Examples
+                       Shardagnostic.Network.Protocol.TipSample.Test
+                       Shardagnostic.Network.Protocol.TxSubmission.Direct
+                       Shardagnostic.Network.Protocol.TxSubmission.Examples
+                       Shardagnostic.Network.Protocol.TxSubmission.Test
+                       Shardagnostic.Network.Protocol.TxSubmission2.Test
+                       Shardagnostic.Network.Protocol.KeepAlive.Direct
+                       Shardagnostic.Network.Protocol.KeepAlive.Examples
+                       Shardagnostic.Network.Protocol.KeepAlive.Test
+
+                       Test.ChainGenerators
+                       Test.ChainProducerState
+                       Test.Shardagnostic.Network.Testing.Utils
+  build-depends:       base,
+                       bytestring,
+                       cborg,
+                       containers,
+                       pipes,
+                       QuickCheck,
+                       serialise,
+                       strict-containers,
+                       tasty,
+                       tasty-quickcheck,
+                       text,
+
+                       bcc-slotting,
+                       contra-tracer,
+
+                       io-classes,
+                       io-sim,
+                       shardagnostic-network,
+                       shardagnostic-network-framework,
+                       typed-protocols
+
+  ghc-options:         -Wall
+                       -Wno-unticked-promoted-constructors
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Main.hs
+  other-modules:       Shardagnostic.Network.BlockFetch.Examples
+                       Shardagnostic.Network.MockNode
+
+                       Test.AnchoredFragment
+                       Test.Chain
+                       Test.LedgerPeers
+                       Test.Shardagnostic.Network.BlockFetch
+                       Test.Shardagnostic.Network.KeepAlive
+                       Test.Shardagnostic.Network.MockNode
+                       Test.Shardagnostic.Network.TxSubmission
+                       Test.Shardagnostic.Network.PeerSelection
+                       Test.Shardagnostic.Network.PeerSelection.Instances
+                       Test.Shardagnostic.Network.PeerSelection.LocalRootPeers
+                       Test.Shardagnostic.Network.PeerSelection.MockEnvironment
+                       Test.Shardagnostic.Network.PeerSelection.PeerGraph
+                       Test.Shardagnostic.Network.PeerSelection.Script
+                       Test.Shardagnostic.Network.NodeToNode.Version
+                       Test.Shardagnostic.Network.NodeToClient.Version
+                       Test.Mux
+                       Test.Pipe
+                       Test.Socket
+                       Test.PeerState
+                       Test.Version
+  default-language:    Haskell2010
+  build-depends:       base,
+                       QuickCheck,
+                       array,
+                       async,
+                       bytestring,
+                       cborg,
+                       containers,
+                       dns,
+                       hashable,
+                       mtl,
+                       network,
+                       process,
+                       random,
+                       serialise,
+                       tasty,
+                       tasty-hunit,
+                       tasty-quickcheck,
+
+                       bcc-prelude,
+                       bcc-slotting,
+                       contra-tracer,
+                       nothunks,
+
+                       io-classes,
+                       io-sim,
+                       network-mux,
+                       shardagnostic-network,
+                       shardagnostic-network-framework,
+                       shardagnostic-network-testing,
+                       shardagnostic-protocol-tests,
+                       typed-protocols
+
+  if os(windows)
+    build-depends:     Win32-network                 <0.2.0.0,
+                       Win32           >= 2.5.4.1 && <3.0
+
+  ghc-options:         -Wall
+                       -Wno-unticked-promoted-constructors
+                       -fno-ignore-asserts
+                       -threaded
+  if flag(ipv6)
+    cpp-options:       -DOUROBOROS_NETWORK_IPV6
+
+test-suite cddl
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test-cddl
+  main-is:             Main.hs
+  if flag(cddl)
+    buildable: True
+  else
+    buildable: False
+  default-language:    Haskell2010
+  build-depends:       base,
+                       bytestring,
+                       cborg,
+                       containers,
+                       directory,
+                       filepath,
+                       mtl,
+                       process-extras,
+                       serialise,
+                       text,
+                       temporary,
+
+                       QuickCheck,
+                       quickcheck-instances,
+                       tasty,
+                       tasty-hunit,
+                       tasty-quickcheck,
+
+                       typed-protocols,
+                       shardagnostic-network-framework,
+                       shardagnostic-network,
+                       shardagnostic-protocol-tests
+
+  ghc-options:         -Wall
+                       -Wno-unticked-promoted-constructors
+                       -fno-ignore-asserts
+
+executable demo-chain-sync
+  hs-source-dirs:      demo
+  main-is:             chain-sync.hs
+  build-depends:       base,
+                       async,
+                       bytestring,
+                       containers,
+                       directory,
+                       random,
+                       serialise,
+                       stm,
+
+                       contra-tracer,
+
+                       network-mux,
+                       shardagnostic-network-framework,
+                       shardagnostic-network
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -threaded
+                       -rtsopts

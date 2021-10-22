@@ -1,0 +1,125 @@
+name:                  shardagnostic-consensus-bcc-test
+version:               0.1.0.0
+synopsis:              Test of the instantation of the Shardagnostic consensus layer used by Bcc
+-- description:
+license:               Apache-2.0
+license-files:
+  LICENSE
+  NOTICE
+copyright:             2021 The-Blockchain-Company
+author:                TBCO Engineering Team
+maintainer:            operations@tbco.io
+category:              Network
+build-type:            Simple
+cabal-version:         >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/The-Blockchain-Company/shardagnostic-network
+
+library
+  hs-source-dirs:      src
+  exposed-modules:
+                       Test.Consensus.Bcc.Examples
+                       Test.Consensus.Bcc.Generators
+                       Test.Consensus.Bcc.MockCrypto
+
+                       Test.ThreadNet.Infra.SophieBasedHardFork
+                       Test.ThreadNet.Infra.TwoEras
+
+                       Test.ThreadNet.TxGen.Evie
+                       Test.ThreadNet.TxGen.Aurum
+                       Test.ThreadNet.TxGen.Bcc
+                       Test.ThreadNet.TxGen.Jen
+
+  build-depends:       base
+                     , bcc-crypto-class
+                     , bcc-crypto-wrapper
+                     , bcc-slotting
+                     , containers
+                     , mtl
+                     , QuickCheck
+                     , sop-core
+                     , strict-containers
+
+                     , bcc-ledger-aurum
+                     , bcc-ledger-aurum-test
+                     , bcc-ledger-cole
+                     , bcc-ledger-core
+                     , bcc-protocol-toptimum
+                     , sophie-spec-ledger
+                     , sophie-spec-ledger-test
+
+                     , shardagnostic-network
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-test
+                     , shardagnostic-consensus-cole
+                     , shardagnostic-consensus-cole-test
+                     , shardagnostic-consensus-sophie
+                     , shardagnostic-consensus-sophie-test
+                     , shardagnostic-consensus-bcc
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Main.hs
+  other-modules:
+                       Test.Consensus.Bcc.ColeCompatibility
+                       Test.Consensus.Bcc.Golden
+                       Test.Consensus.Bcc.Serialisation
+                       Test.ThreadNet.EvieJen
+                       Test.ThreadNet.Bcc
+                       Test.ThreadNet.JenAurum
+                       Test.ThreadNet.SophieEvie
+
+  build-depends:       base
+                     , bytestring
+                     , bcc-crypto-class
+                     , bcc-slotting
+                     , cborg
+                     , containers
+                     , filepath
+                     , QuickCheck
+                     , sop-core
+                     , tasty
+                     , tasty-quickcheck
+
+                     , bcc-ledger-core
+                     , bcc-ledger-aurum
+                     , bcc-ledger-cole
+                     , bcc-protocol-toptimum
+                     , sophie-spec-ledger
+
+                     , shardagnostic-network
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-test
+                     , shardagnostic-consensus-cole
+                     , shardagnostic-consensus-cole-test
+                     , shardagnostic-consensus-sophie
+                     , shardagnostic-consensus-sophie-test
+                     , shardagnostic-consensus-bcc
+                     , shardagnostic-consensus-bcc-test
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+                       -threaded
+                       -rtsopts

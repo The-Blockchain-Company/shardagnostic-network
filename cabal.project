@@ -1,0 +1,265 @@
+index-state: 2021-02-15T00:00:00Z
+
+packages: ./typed-protocols
+          ./typed-protocols-examples
+          ./shardagnostic-network-testing
+          ./monoidal-synchronisation
+          ./network-mux
+          ./shardagnostic-network-framework
+          ./shardagnostic-network
+          ./shardagnostic-network-testing
+          ./shardagnostic-consensus
+          ./shardagnostic-consensus-cole
+          ./shardagnostic-consensus-cole-test
+          ./shardagnostic-consensus-colespec
+          ./shardagnostic-consensus-bcc
+          ./shardagnostic-consensus-bcc-test
+          ./shardagnostic-consensus-mock
+          ./shardagnostic-consensus-mock-test
+          ./shardagnostic-consensus-sophie
+          ./shardagnostic-consensus-sophie-test
+          ./shardagnostic-consensus-test
+          ./io-sim
+          ./io-classes
+          ./ntp-client
+          ./bcc-client
+
+constraints:
+    ip < 1.5
+  , hedgehog >= 1.0
+  , bimap >= 0.4.0
+  , ListLike >= 4.7.3
+  , witherable >= 0.4
+
+package Win32-network
+  tests: True
+
+package io-classes
+  flags: +asserts
+
+package network-mux
+  flags: +asserts
+
+package typed-protocols
+
+package typed-protocols-examples
+  tests: True
+
+package shardagnostic-network-framework
+  tests: True
+
+package shardagnostic-network-testing
+  tests: True
+
+package mux
+  tests: True
+
+package shardagnostic-network
+  tests: True
+  flags: +asserts +cddl
+
+
+package shardagnostic-consensus
+  flags: +asserts
+
+package shardagnostic-consensus-test
+  tests: True
+
+package shardagnostic-consensus-mock
+  flags: +asserts
+
+package shardagnostic-consensus-mock-test
+  tests: True
+
+package shardagnostic-consensus-cole
+  flags: +asserts
+
+package shardagnostic-consensus-cole-test
+  tests: True
+
+package shardagnostic-consensus-sophie
+  flags: +asserts
+
+package shardagnostic-consensus-sophie-test
+  tests: True
+
+package shardagnostic-consensus-bcc
+  flags: +asserts
+
+package shardagnostic-consensus-bcc-test
+  tests: True
+
+
+package bcc-binary
+  tests: False
+
+package bcc-crypto
+  tests: False
+
+package bcc-crypto-class
+  tests: False
+
+package bcc-crypto-wrapper
+  tests: False
+
+package bcc-prelude-test
+  tests: False
+
+package contra-tracer
+  tests: False
+
+package cole-spec-chain
+  tests: False
+
+package cole-spec-ledger
+  tests: False
+
+package bcc-ledger-cole
+  tests: False
+
+package bcc-ledger-sophie-ma-test
+  tests: False
+
+package bcc-ledger-cole-test
+  tests: False
+
+package goblins
+  tests: False
+
+package sophie-spec-ledger-test
+  tests: False
+
+package bcc-ledger-aurum-test
+  tests: False
+
+package sophie-spec-non-integral
+  tests: False
+
+package small-steps
+  tests: False
+
+package small-steps-test
+  tests: False
+
+package zerepoch-tx
+  tests: False
+
+package zerepoch-core
+  tests: False
+
+package prettyprinter-configurable
+  tests: False
+
+allow-newer:
+  monoidal-containers:aeson,
+  size-based:template-haskell,
+
+  -- TODO: This is only needed until index-state is updated to 2021-02-17 or later.
+  test-framework:random,
+  test-framework-quickcheck2:random
+
+constraints:
+  -- bizarre issue: in earlier versions they define their own 'GEq', in newer
+  -- ones they reuse the one from 'some', but there isn't e.g. a proper version
+  -- constraint from dependent-sum-template (which is the library we actually use).
+  , dependent-sum > 0.6.2.0
+
+-- ---------------------------------------------------------
+-- The "cabal" wrapper script provided by nix-shell will cut off / restore the remainder of this file
+-- in order to force usage of nix provided dependencies for `source-repository-package`s.
+-- --------------------------- 8< --------------------------
+-- Please do not put any `source-repository-package` clause above this line.
+
+source-repository-package
+  type: git
+  location: https://github.com/The-Blockchain-Company/Win32-network
+  tag: 16cadcfe30bae30e8e6362f5087cad9f5bc274d5
+  --sha256: 
+
+source-repository-package
+  type: git
+  location: https://github.com/The-Blockchain-Company/tbco-monitoring-framework
+  tag: 4d9367fd730a383a25049621dd442632c8316f50
+  --sha256: 
+  subdir: contra-tracer
+
+source-repository-package
+  type: git
+  location: https://github.com/The-Blockchain-Company/bcc-prelude
+  tag: 583f26698d2a46b06ea251a4b3f1762d909f9ecb
+  --sha256:
+  subdir:
+    bcc-prelude
+    bcc-prelude-test
+
+source-repository-package
+  type: git
+  location: https://github.com/The-Blockchain-Company/bcc-base
+  tag: 027956bcb59f227e9b8c2032aacbb945394f4785
+  --sha256:
+  subdir:
+    base-deriving-via
+    binary
+    binary/test
+    bcc-crypto-class
+    bcc-crypto-optimum
+    measures
+    orphans-deriving-via
+    slotting
+    strict-containers
+
+source-repository-package
+  type: git
+  location: https://github.com/The-Blockchain-Company/bcc-ledger-specs
+  tag: 
+  --sha256: 
+  subdir:
+    aurum/impl
+    aurum/test
+    cole/chain/executable-spec
+    cole/crypto
+    cole/crypto/test
+    cole/ledger/executable-spec
+    cole/ledger/impl
+    cole/ledger/impl/test
+    bcc-ledger-core
+    bcc-protocol-toptimum
+    semantics/executable-spec
+    semantics/small-steps-test
+    sophie/chain-and-ledger/dependencies/non-integer
+    sophie/chain-and-ledger/executable-spec
+    sophie/chain-and-ledger/sophie-spec-ledger-test
+    sophie-ma/impl
+    sophie-ma/sophie-ma-test
+
+source-repository-package
+  type: git
+  location: https://github.com/The-Blockchain-Company/zerepoch
+  tag: 37c375ba16089fb9faf825ec356c8b1feb142f2c
+  --sha256:
+  subdir:
+    zerepoch-ledger-api
+    zerepoch-tx
+    zerepoch-core
+    prettyprinter-configurable
+    word-array
+
+source-repository-package
+  type: git
+  location: https://github.com/The-Blockchain-Company/shepards
+  tag: f3f78f1f98060115122a23f38eaf2c9a42806b87
+  --sha256:
+
+source-repository-package
+  type: git
+  location: https://github.com/The-Blockchain-Company/bcc-crypto
+  tag: 3e03966459d94e6020364487f85451b641ee64a4
+  --sha256: 
+
+-- Drops an instance breaking the Zerepoch code. Should be released to Hackage
+-- eventually.
+source-repository-package
+  type: git
+  location: https://github.com/michaelpj/flat.git
+  tag: ee59880f47ab835dbd73bea0847dab7869fc20d8
+  --sha256: 1lrzknw765pz2j97nvv9ip3l1mcpf2zr4n56hwlz0rk7wq7ls4cm

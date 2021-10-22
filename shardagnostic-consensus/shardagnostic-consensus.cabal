@@ -1,0 +1,351 @@
+name:                shardagnostic-consensus
+version:             0.1.0.0
+synopsis:            Consensus layer for the Shardagnostic blockchain protocol
+-- description:
+license:             Apache-2.0
+license-files:
+  LICENSE
+  NOTICE
+copyright:           2021 The-Blockchain-Company
+author:              TBCO Engineering Team
+maintainer:          operations@tbco.io
+category:            Network
+build-type:          Simple
+cabal-version:       >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/The-Blockchain-Company/shardagnostic-network
+
+flag asserts
+  description: Enable assertions
+  manual:      False
+  default:     False
+
+library
+  hs-source-dirs:      src
+
+  if os(windows)
+     hs-source-dirs:   src-win32
+  else
+     hs-source-dirs:   src-unix
+
+  exposed-modules:
+                       Shardagnostic.Consensus.Block
+                       Shardagnostic.Consensus.Block.Abstract
+                       Shardagnostic.Consensus.Block.EBB
+                       Shardagnostic.Consensus.Block.Forging
+                       Shardagnostic.Consensus.Block.NestedContent
+                       Shardagnostic.Consensus.Block.RealPoint
+                       Shardagnostic.Consensus.Block.SupportsMetrics
+                       Shardagnostic.Consensus.Block.SupportsProtocol
+                       Shardagnostic.Consensus.BlockchainTime
+                       Shardagnostic.Consensus.BlockchainTime.API
+                       Shardagnostic.Consensus.BlockchainTime.WallClock.Default
+                       Shardagnostic.Consensus.BlockchainTime.WallClock.HardFork
+                       Shardagnostic.Consensus.BlockchainTime.WallClock.Simple
+                       Shardagnostic.Consensus.BlockchainTime.WallClock.Types
+                       Shardagnostic.Consensus.BlockchainTime.WallClock.Util
+                       Shardagnostic.Consensus.Config
+                       Shardagnostic.Consensus.Config.SecurityParam
+                       Shardagnostic.Consensus.Config.SupportsNode
+                       Shardagnostic.Consensus.Forecast
+                       Shardagnostic.Consensus.Fragment.Diff
+                       Shardagnostic.Consensus.Fragment.InFuture
+                       Shardagnostic.Consensus.Fragment.Validated
+                       Shardagnostic.Consensus.Fragment.ValidatedDiff
+                       Shardagnostic.Consensus.HardFork.Abstract
+                       Shardagnostic.Consensus.HardFork.Combinator
+                       Shardagnostic.Consensus.HardFork.Combinator.Abstract
+                       Shardagnostic.Consensus.HardFork.Combinator.Abstract.CanHardFork
+                       Shardagnostic.Consensus.HardFork.Combinator.Abstract.NoHardForks
+                       Shardagnostic.Consensus.HardFork.Combinator.Abstract.SingleEraBlock
+                       Shardagnostic.Consensus.HardFork.Combinator.AcrossEras
+                       Shardagnostic.Consensus.HardFork.Combinator.Basics
+                       Shardagnostic.Consensus.HardFork.Combinator.Block
+                       Shardagnostic.Consensus.HardFork.Combinator.Compat
+                       Shardagnostic.Consensus.HardFork.Combinator.Condense
+                       Shardagnostic.Consensus.HardFork.Combinator.Degenerate
+                       Shardagnostic.Consensus.HardFork.Combinator.Embed.Binary
+                       Shardagnostic.Consensus.HardFork.Combinator.Embed.Nary
+                       Shardagnostic.Consensus.HardFork.Combinator.Embed.Unary
+                       Shardagnostic.Consensus.HardFork.Combinator.Forging
+                       Shardagnostic.Consensus.HardFork.Combinator.Info
+                       Shardagnostic.Consensus.HardFork.Combinator.InjectTxs
+                       Shardagnostic.Consensus.HardFork.Combinator.Ledger
+                       Shardagnostic.Consensus.HardFork.Combinator.Ledger.CommonProtocolParams
+                       Shardagnostic.Consensus.HardFork.Combinator.Ledger.PeerSelection
+                       Shardagnostic.Consensus.HardFork.Combinator.Ledger.Query
+                       Shardagnostic.Consensus.HardFork.Combinator.Mempool
+                       Shardagnostic.Consensus.HardFork.Combinator.Node
+                       Shardagnostic.Consensus.HardFork.Combinator.Node.InitStorage
+                       Shardagnostic.Consensus.HardFork.Combinator.Node.Metrics
+                       Shardagnostic.Consensus.HardFork.Combinator.PartialConfig
+                       Shardagnostic.Consensus.HardFork.Combinator.Protocol
+                       Shardagnostic.Consensus.HardFork.Combinator.Protocol.ChainSel
+                       Shardagnostic.Consensus.HardFork.Combinator.Protocol.LedgerView
+                       Shardagnostic.Consensus.HardFork.Combinator.Serialisation
+                       Shardagnostic.Consensus.HardFork.Combinator.Serialisation.Common
+                       Shardagnostic.Consensus.HardFork.Combinator.Serialisation.SerialiseDisk
+                       Shardagnostic.Consensus.HardFork.Combinator.Serialisation.SerialiseNodeToClient
+                       Shardagnostic.Consensus.HardFork.Combinator.Serialisation.SerialiseNodeToNode
+                       Shardagnostic.Consensus.HardFork.Combinator.State
+                       Shardagnostic.Consensus.HardFork.Combinator.State.Infra
+                       Shardagnostic.Consensus.HardFork.Combinator.State.Instances
+                       Shardagnostic.Consensus.HardFork.Combinator.State.Lift
+                       Shardagnostic.Consensus.HardFork.Combinator.State.Types
+                       Shardagnostic.Consensus.HardFork.Combinator.Translation
+                       Shardagnostic.Consensus.HardFork.Combinator.Util.DerivingVia
+                       Shardagnostic.Consensus.HardFork.Combinator.Util.Functors
+                       Shardagnostic.Consensus.HardFork.Combinator.Util.InPairs
+                       Shardagnostic.Consensus.HardFork.Combinator.Util.Match
+                       Shardagnostic.Consensus.HardFork.Combinator.Util.Tails
+                       Shardagnostic.Consensus.HardFork.Combinator.Util.Telescope
+                       Shardagnostic.Consensus.HardFork.History
+                       Shardagnostic.Consensus.HardFork.History.Caching
+                       Shardagnostic.Consensus.HardFork.History.EpochInfo
+                       Shardagnostic.Consensus.HardFork.History.EraParams
+                       Shardagnostic.Consensus.HardFork.History.Qry
+                       Shardagnostic.Consensus.HardFork.History.Summary
+                       Shardagnostic.Consensus.HardFork.History.Util
+                       Shardagnostic.Consensus.HardFork.Simple
+                       Shardagnostic.Consensus.HeaderStateHistory
+                       Shardagnostic.Consensus.HeaderValidation
+                       Shardagnostic.Consensus.Ledger.Abstract
+                       Shardagnostic.Consensus.Ledger.Basics
+                       Shardagnostic.Consensus.Ledger.CommonProtocolParams
+                       Shardagnostic.Consensus.Ledger.Dual
+                       Shardagnostic.Consensus.Ledger.Extended
+                       Shardagnostic.Consensus.Ledger.Inspect
+                       Shardagnostic.Consensus.Ledger.Query
+                       Shardagnostic.Consensus.Ledger.Query.Version
+                       Shardagnostic.Consensus.Ledger.SupportsMempool
+                       Shardagnostic.Consensus.Ledger.SupportsPeerSelection
+                       Shardagnostic.Consensus.Ledger.SupportsProtocol
+                       Shardagnostic.Consensus.Mempool
+                       Shardagnostic.Consensus.Mempool.API
+                       Shardagnostic.Consensus.Mempool.Impl
+                       Shardagnostic.Consensus.Mempool.Impl.Pure
+                       Shardagnostic.Consensus.Mempool.Impl.Types
+                       Shardagnostic.Consensus.Mempool.TxLimits
+                       Shardagnostic.Consensus.Mempool.TxSeq
+                       Shardagnostic.Consensus.MiniProtocol.BlockFetch.Server
+                       Shardagnostic.Consensus.MiniProtocol.ChainSync.Client
+                       Shardagnostic.Consensus.MiniProtocol.ChainSync.Server
+                       Shardagnostic.Consensus.MiniProtocol.LocalStateQuery.Server
+                       Shardagnostic.Consensus.MiniProtocol.LocalTxSubmission.Server
+                       Shardagnostic.Consensus.Network.NodeToClient
+                       Shardagnostic.Consensus.Network.NodeToNode
+                       Shardagnostic.Consensus.Node
+                       Shardagnostic.Consensus.Node.DbLock
+                       Shardagnostic.Consensus.Node.DbMarker
+                       Shardagnostic.Consensus.Node.ErrorPolicy
+                       Shardagnostic.Consensus.Node.Exit
+                       Shardagnostic.Consensus.NodeId
+                       Shardagnostic.Consensus.NodeKernel
+                       Shardagnostic.Consensus.Node.InitStorage
+                       Shardagnostic.Consensus.Node.NetworkProtocolVersion
+                       Shardagnostic.Consensus.Node.ProtocolInfo
+                       Shardagnostic.Consensus.Node.Recovery
+                       Shardagnostic.Consensus.Node.Run
+                       Shardagnostic.Consensus.Node.Serialisation
+                       Shardagnostic.Consensus.Node.Tracers
+                       Shardagnostic.Consensus.Protocol.Abstract
+                       Shardagnostic.Consensus.Protocol.BFT
+                       Shardagnostic.Consensus.Protocol.LeaderSchedule
+                       Shardagnostic.Consensus.Protocol.MockChainSel
+                       Shardagnostic.Consensus.Protocol.ModChainSel
+                       Shardagnostic.Consensus.Protocol.PBFT
+                       Shardagnostic.Consensus.Protocol.PBFT.Crypto
+                       Shardagnostic.Consensus.Protocol.PBFT.State
+                       Shardagnostic.Consensus.Protocol.Signed
+                       Shardagnostic.Consensus.Ticked
+                       Shardagnostic.Consensus.TypeFamilyWrappers
+                       Shardagnostic.Consensus.Util
+                       Shardagnostic.Consensus.Util.AnchoredFragment
+                       Shardagnostic.Consensus.Util.Args
+                       Shardagnostic.Consensus.Util.Assert
+                       Shardagnostic.Consensus.Util.CallStack
+                       Shardagnostic.Consensus.Util.CBOR
+                       Shardagnostic.Consensus.Util.Condense
+                       Shardagnostic.Consensus.Util.Counting
+                       Shardagnostic.Consensus.Util.DepPair
+                       Shardagnostic.Consensus.Util.EarlyExit
+                       Shardagnostic.Consensus.Util.FileLock
+                       Shardagnostic.Consensus.Util.HList
+                       Shardagnostic.Consensus.Util.IOLike
+                       Shardagnostic.Consensus.Util.MonadSTM.NormalForm
+                       Shardagnostic.Consensus.Util.MonadSTM.RAWLock
+                       Shardagnostic.Consensus.Util.MonadSTM.StrictMVar
+                       Shardagnostic.Consensus.Util.OptNP
+                       Shardagnostic.Consensus.Util.Orphans
+                       Shardagnostic.Consensus.Util.RedundantConstraints
+                       Shardagnostic.Consensus.Util.ResourceRegistry
+                       Shardagnostic.Consensus.Util.Singletons
+                       Shardagnostic.Consensus.Util.SOP
+                       Shardagnostic.Consensus.Util.STM
+                       Shardagnostic.Consensus.Util.Time
+                       Shardagnostic.Consensus.Util.TraceSize
+                       Shardagnostic.Consensus.Util.Versioned
+
+                       -- Storing things on disk
+                       Shardagnostic.Consensus.Storage.ChainDB
+                       Shardagnostic.Consensus.Storage.ChainDB.API
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.Args
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.Background
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.BlockCache
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.ChainSel
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.Follower
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.Iterator
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.LgrDB
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.Paths
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.Query
+                       Shardagnostic.Consensus.Storage.ChainDB.Impl.Types
+                       Shardagnostic.Consensus.Storage.ChainDB.Init
+                       Shardagnostic.Consensus.Storage.Common
+                       Shardagnostic.Consensus.Storage.FS.API
+                       Shardagnostic.Consensus.Storage.FS.API.Types
+                       Shardagnostic.Consensus.Storage.FS.CRC
+                       Shardagnostic.Consensus.Storage.FS.Handle
+                       Shardagnostic.Consensus.Storage.FS.IO
+                       Shardagnostic.Consensus.Storage.IO
+                       Shardagnostic.Consensus.Storage.ImmutableDB
+                       Shardagnostic.Consensus.Storage.ImmutableDB.API
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Chunks
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Chunks.Internal
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Chunks.Layout
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Index
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Index.Cache
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Index.Primary
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Index.Secondary
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Iterator
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Parser
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.State
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Types
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Util
+                       Shardagnostic.Consensus.Storage.ImmutableDB.Impl.Validation
+                       Shardagnostic.Consensus.Storage.LedgerDB.DiskPolicy
+                       Shardagnostic.Consensus.Storage.LedgerDB.InMemory
+                       Shardagnostic.Consensus.Storage.LedgerDB.OnDisk
+                       Shardagnostic.Consensus.Storage.Serialisation
+                       Shardagnostic.Consensus.Storage.VolatileDB
+                       Shardagnostic.Consensus.Storage.VolatileDB.API
+                       Shardagnostic.Consensus.Storage.VolatileDB.Impl
+                       Shardagnostic.Consensus.Storage.VolatileDB.Impl.FileInfo
+                       Shardagnostic.Consensus.Storage.VolatileDB.Impl.Index
+                       Shardagnostic.Consensus.Storage.VolatileDB.Impl.Parser
+                       Shardagnostic.Consensus.Storage.VolatileDB.Impl.State
+                       Shardagnostic.Consensus.Storage.VolatileDB.Impl.Types
+                       Shardagnostic.Consensus.Storage.VolatileDB.Impl.Util
+
+                       -- Strict wrapper around SOP
+                       Data.SOP.Strict
+  if os(windows)
+     exposed-modules:  Shardagnostic.Consensus.Storage.Seek
+
+  default-language:    Haskell2010
+  other-extensions:
+                       BangPatterns
+                       ConstraintKinds
+                       DataKinds
+                       DeriveAnyClass
+                       DeriveFunctor
+                       DeriveGeneric
+                       EmptyDataDecls
+                       FlexibleContexts
+                       FlexibleInstances
+                       FunctionalDependencies
+                       GADTs
+                       GeneralizedNewtypeDeriving
+                       KindSignatures
+                       LambdaCase
+                       MultiParamTypeClasses
+                       NamedFieldPuns
+                       OverloadedStrings
+                       PackageImports
+                       PolyKinds
+                       RankNTypes
+                       RecordWildCards
+                       ScopedTypeVariables
+                       StandaloneDeriving
+                       TemplateHaskell
+                       TupleSections
+                       TypeApplications
+                       TypeFamilies
+                       TypeFamilyDependencies
+                       TypeInType
+                       TypeOperators
+                       UndecidableInstances
+                       UndecidableSuperClasses
+                       ViewPatterns
+
+  build-depends:       base              >=4.9 && <4.15
+                     , base-deriving-via
+                     , base16-bytestring
+                     , bimap             >=0.3   && <0.5
+                     , binary            >=0.8   && <0.11
+                     , bytestring        >=0.10  && <0.11
+                     , bcc-binary
+                     , bcc-crypto-class
+                     , bcc-prelude
+                     , bcc-slotting
+                     , cborg             >=0.2.2 && <0.3
+                     , containers        >=0.5   && <0.7
+                     , contra-tracer
+                     , deepseq
+                     , digest
+                     , directory         >=1.3   && <1.4
+                     , filelock
+                     , filepath          >=1.4   && <1.5
+                     , hashable
+                     , measures
+                     , mtl               >=2.2   && <2.3
+                     , nothunks          >=0.1.2 && <0.2
+                     , psqueues          >=0.2.3 && <0.3
+                     , random
+                     , quiet             >=0.2   && <0.3
+                     , semialign         >=1.1   && <1.2
+                     , serialise         >=0.2   && <0.3
+                     , sop-core          >=0.5   && <0.6
+                     , stm               >=2.5   && <2.6
+                     , streaming
+                     , strict-containers
+                     , text              >=1.2   && <1.3
+                     , these             >=1.1   && <1.2
+                     , time
+                     , transformers
+                     , vector            >=0.12  && <0.13
+
+                     , io-classes        >=0.2   && <0.3
+                     , typed-protocols
+                     , network-mux
+                     , shardagnostic-network-framework
+                     , shardagnostic-network
+
+
+  if os(windows)
+    if impl(ghc >= 8.10.2) && impl(ghc < 8.11)
+      -- Fix the Win32 version to be whatever is shipped with GHC.  This is important
+      -- because we have other code that uses the GHC API which requires this specific
+      -- version of the Win32 or constraint solving will fail.
+      build-depends:   Win32 == 2.6.1.0
+    else
+      build-depends:   Win32
+  else
+     build-depends:    unix
+                     , unix-bytestring
+
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+
+  if flag(asserts)
+    ghc-options:       -fno-ignore-asserts
+    cpp-options:       -DENABLE_ASSERTIONS

@@ -1,0 +1,4 @@
+package bcc-crypto-optimum
+  flags: -external-libsodium-vrf
+
+tests: False

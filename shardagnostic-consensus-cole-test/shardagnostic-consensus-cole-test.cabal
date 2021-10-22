@@ -1,0 +1,121 @@
+name:                  shardagnostic-consensus-cole-test
+version:               0.1.0.0
+synopsis:              Test infrastructure for Cole
+-- description:
+license:               Apache-2.0
+license-files:
+  LICENSE
+  NOTICE
+copyright:             2021 The-Blockchain-Company
+author:                TBCO Engineering Team
+maintainer:            operations@tbco.io
+category:              Network
+build-type:            Simple
+cabal-version:         >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/The-Blockchain-Company/shardagnostic-network
+
+library
+  hs-source-dirs:      src
+
+  exposed-modules:
+                       Shardagnostic.Consensus.ColeDual.Ledger
+                       Shardagnostic.Consensus.ColeDual.Node
+                       Shardagnostic.Consensus.ColeDual.Node.Serialisation
+
+                       Test.Consensus.Cole.Examples
+                       Test.Consensus.Cole.Generators
+                       Test.ThreadNet.Infra.Cole
+                       Test.ThreadNet.Infra.Cole.Genesis
+                       Test.ThreadNet.Infra.Cole.ProtocolInfo
+                       Test.ThreadNet.Infra.Cole.TrackUpdates
+                       Test.ThreadNet.TxGen.Cole
+
+  build-depends:       base              >=4.9   && <4.15
+                     , bytestring        >=0.10  && <0.11
+                     , bcc-binary
+                     , bcc-crypto-class
+                     , bcc-crypto-test
+                     , bcc-crypto-wrapper
+                     , bcc-ledger-cole
+                     , bcc-ledger-cole-test
+                     , containers        >=0.5   && <0.7
+                     , hedgehog-quickcheck
+                     , mtl               >=2.2   && <2.3
+                     , QuickCheck
+                     , serialise         >=0.2   && <0.3
+
+                     , cole-spec-ledger
+
+                     , shardagnostic-network
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-test
+                     , shardagnostic-consensus-cole
+                     , shardagnostic-consensus-colespec
+
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Main.hs
+  other-modules:
+                       Test.Consensus.Cole.Golden
+                       Test.Consensus.Cole.Serialisation
+                       Test.ThreadNet.Cole
+                       Test.ThreadNet.DualCole
+
+  build-depends:       base
+                     , binary-search
+                     , bytestring
+                     , bcc-binary
+                     , bcc-crypto-class
+                     , bcc-crypto-wrapper
+                     , bcc-ledger-cole
+                     , bcc-ledger-cole-test
+                     , bcc-slotting
+                     , cborg
+                     , containers
+                     , filepath
+                     , hedgehog-quickcheck
+                     , mtl
+                     , QuickCheck
+                     , tasty
+                     , tasty-quickcheck
+
+                     , cole-spec-chain
+                     , cole-spec-ledger
+                     , small-steps
+                     , small-steps-test
+
+                     , shardagnostic-network
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-test
+                     , shardagnostic-consensus-cole
+                     , shardagnostic-consensus-cole-test
+                     , shardagnostic-consensus-colespec
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+                       -threaded
+                       -rtsopts

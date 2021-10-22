@@ -1,0 +1,47 @@
+{ pkgs }: with pkgs;
+let
+  src = haskell-nix.haskellLib.cleanGit {
+    name = "shardagnostic-consensus-docs-src";
+    src = ../.;
+    subDir = "shardagnostic-consensus/docs";
+  };
+in
+pkgs.runCommand "shardagnostic-consensus-docs"
+{
+  meta.platforms = with pkgs.lib.platforms; [ linux darwin ];
+  nativeBuildInputs = [ imagemagick ];
+  buildInputs = [
+    (texlive.combine {
+      inherit (texlive)
+        amsmath
+        cleveref
+        collection-fontsrecommended
+        enumitem
+        latexmk
+        scheme-small
+        siunitx
+        todonotes
+        ;
+    })
+  ];
+} ''
+
+  for d in report; do
+    mkdir -p docs/$d
+    ln -s ${src}/$d/* docs/$d/
+  done
+
+  mkdir -p $out
+
+  (
+    cd docs/report
+    latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode" report.tex
+    cp -a *.pdf $out/
+  )
+
+  mkdir -p $out/nix-support
+
+  for pdf in $out/*.pdf; do
+    echo "file binary-dist $pdf" >> $out/nix-support/hydra-build-products
+  done
+''

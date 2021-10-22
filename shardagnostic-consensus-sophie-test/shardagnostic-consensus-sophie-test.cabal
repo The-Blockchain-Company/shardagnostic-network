@@ -1,0 +1,114 @@
+name:                  shardagnostic-consensus-sophie-test
+version:               0.1.0.0
+synopsis:              Test infrastructure for Sophie
+-- description:
+license:               Apache-2.0
+license-files:
+  LICENSE
+  NOTICE
+copyright:             2021 The-Blockchain-Company
+author:                TBCO Engineering Team
+maintainer:            operations@tbco.io
+category:              Network
+build-type:            Simple
+cabal-version:         >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/The-Blockchain-Company/shardagnostic-network
+
+library
+  hs-source-dirs:      src
+
+  exposed-modules:
+                       Test.Consensus.Sophie.Examples
+                       Test.Consensus.Sophie.Generators
+                       Test.Consensus.Sophie.MockCrypto
+                       Test.ThreadNet.Infra.Aurum
+                       Test.ThreadNet.Infra.Sophie
+                       Test.ThreadNet.TxGen.Sophie
+
+  build-depends:       base              >=4.9   && <4.15
+                     , bytestring        >=0.10  && <0.11
+                     , bcc-crypto-class
+                     , bcc-ledger-core
+                     , bcc-protocol-toptimum
+                     , bcc-slotting
+                     , containers        >=0.5   && <0.7
+                     , generic-random
+                     , quiet             >=0.2   && <0.3
+                     , mtl               >=2.2   && <2.3
+                     , QuickCheck
+                     , strict-containers
+                     , transformers
+
+                       -- bcc-ledger-specs
+                     , bcc-ledger-aurum
+                     , bcc-ledger-aurum-test
+                     , bcc-ledger-sophie-ma
+                     , bcc-ledger-sophie-ma-test
+                     , sophie-spec-ledger
+                     , sophie-spec-ledger-test
+                     , small-steps
+
+                     , shardagnostic-network
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-test
+                     , shardagnostic-consensus-sophie
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Main.hs
+  other-modules:
+                       Test.Consensus.Sophie.Coherence
+                       Test.Consensus.Sophie.Golden
+                       Test.Consensus.Sophie.Serialisation
+                       Test.ThreadNet.Sophie
+
+  build-depends:       base
+                     , bytestring
+                     , bcc-crypto-class
+                     , bcc-slotting
+                     , cborg
+                     , containers
+                     , filepath
+                     , QuickCheck
+                     , tasty
+                     , tasty-quickcheck
+
+                       -- bcc-ledger-specs
+                     , bcc-ledger-aurum
+                     , bcc-ledger-aurum-test
+                     , bcc-ledger-core
+                     , sophie-spec-ledger
+
+                     , shardagnostic-network
+                     , shardagnostic-consensus
+                     , shardagnostic-consensus-test
+                     , shardagnostic-consensus-sophie
+                     , shardagnostic-consensus-sophie-test
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -fno-ignore-asserts
+                       -threaded
+                       -rtsopts

@@ -1,0 +1,5 @@
+Wireshark Dissector for Shardagnostic-Network.
+
+To use copy ark_network.lua to $HOME/.config/wireshark/plugins
+
+

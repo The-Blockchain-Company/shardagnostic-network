@@ -1,0 +1,64 @@
+{
+    "haskell.nix": {
+        "branch": "master",
+        "description": "Alternative Haskell Infrastructure for Nixpkgs",
+        "homepage": "https://The-Blockchain-Company.github.io/haskell.nix",
+        "owner": "The-Blockchain-Company",
+        "repo": "haskell.nix",
+        "rev": "8aa77fdbd848fe043551e653d837248b4bb76afd",
+        "sha256": "0shqr33kjivb9g8l97rsfhfdqngqd0m5m70pzc06hq2ldf9z9n5i",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/haskell.nix/archive/8aa77fdbd848fe043551e653d837248b4bb76afd.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "hls-released": {
+        "branch": "1.3.0",
+        "builtin": false,
+        "description": "Successor of ghcide & haskell-ide-engine. One IDE to rule them all.",
+        "homepage": "",
+        "owner": "haskell",
+        "repo": "haskell-language-server",
+        "rev": "e7c5e90b6df5dff2760d76169eddaea3bdd6a831",
+        "sha256": "1c5dayxvw00k4vfsfxg955ww32mcfx46124x386nabqzjz7d2cs6",
+        "type": "tarball",
+        "url": "https://github.com/haskell/haskell-language-server/archive/e7c5e90b6df5dff2760d76169eddaea3bdd6a831.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "tbco-nix": {
+        "branch": "master",
+        "description": "nix scripts shared across projects",
+        "homepage": null,
+        "owner": "The-Blockchain-Company",
+        "repo": "tbco-nix",
+        "rev": "0068efb20a3cd74dae8dfaedefaa18ad72d4a1a9",
+        "sha256": "1pk76yca6l8yif6xmfn2p36n10p5p0pc204xrilnm5dfpqnkrsgs",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/tbco-nix/archive/0068efb20a3cd74dae8dfaedefaa18ad72d4a1a9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "tbco",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "The-Blockchain-Company",
+        "repo": "niv",
+        "rev": "89da7b2e7ae0779fd351618fc74df1b1da5e6214",
+        "sha256": "0jn88ahv6mycxdkzihy1v0dz2110q0d42q4ggyj68l2lyba6y0yy",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/niv/archive/89da7b2e7ae0779fd351618fc74df1b1da5e6214.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "stylish-haskell": {
+        "branch": "main",
+        "builtin": false,
+        "description": "Haskell code prettifier",
+        "homepage": "",
+        "owner": "haskell",
+        "repo": "stylish-haskell",
+        "rev": "3d5348041e2efbcae95f1c62ace5ac0ffd9629d2",
+        "sha256": "1rms68fll6w1rzdg9ppjs9g246mbgxi5589vxb8r8pcn5v1ncfj2",
+        "type": "tarball",
+        "url": "https://github.com/haskell/stylish-haskell/archive/3d5348041e2efbcae95f1c62ace5ac0ffd9629d2.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

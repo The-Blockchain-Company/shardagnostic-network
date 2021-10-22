@@ -1,0 +1,79 @@
+name:                shardagnostic-consensus-mock
+version:             0.1.0.0
+synopsis:            Mock ledger integration in the Shardagnostic consensus layer
+-- description:
+license:             Apache-2.0
+license-files:
+  LICENSE
+  NOTICE
+copyright:           2021 The-Blockchain-Company
+author:              TBCO Engineering Team
+maintainer:          operations@tbco.io
+category:            Network
+build-type:          Simple
+cabal-version:       >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/The-Blockchain-Company/shardagnostic-network
+
+flag asserts
+  description: Enable assertions
+  manual:      False
+  default:     False
+
+library
+  hs-source-dirs:      src
+
+  exposed-modules:
+                       Shardagnostic.Consensus.Mock.Ledger
+                       Shardagnostic.Consensus.Mock.Ledger.Address
+                       Shardagnostic.Consensus.Mock.Ledger.Block
+                       Shardagnostic.Consensus.Mock.Ledger.Block.BFT
+                       Shardagnostic.Consensus.Mock.Ledger.Block.PBFT
+                       Shardagnostic.Consensus.Mock.Ledger.Block.Optimum
+                       Shardagnostic.Consensus.Mock.Ledger.Block.OptimumRule
+                       Shardagnostic.Consensus.Mock.Ledger.Forge
+                       Shardagnostic.Consensus.Mock.Ledger.Stake
+                       Shardagnostic.Consensus.Mock.Ledger.State
+                       Shardagnostic.Consensus.Mock.Ledger.UTxO
+                       Shardagnostic.Consensus.Mock.Node
+                       Shardagnostic.Consensus.Mock.Node.Abstract
+                       Shardagnostic.Consensus.Mock.Node.BFT
+                       Shardagnostic.Consensus.Mock.Node.PBFT
+                       Shardagnostic.Consensus.Mock.Node.Optimum
+                       Shardagnostic.Consensus.Mock.Node.OptimumRule
+                       Shardagnostic.Consensus.Mock.Node.Serialisation
+                       Shardagnostic.Consensus.Mock.Protocol.LeaderSchedule
+                       Shardagnostic.Consensus.Mock.Protocol.Optimum
+
+  build-depends:       base              >=4.9   && <4.15
+                     , bimap             >=0.3   && <0.5
+                     , bytestring        >=0.10  && <0.11
+                     , bcc-binary
+                     , bcc-crypto-class
+                     , bcc-slotting
+                     , cborg             >=0.2.2 && <0.3
+                     , containers        >=0.5   && <0.7
+                     , deepseq
+                     , hashable
+                     , mtl               >=2.2   && <2.3
+                     , nothunks
+                     , serialise         >=0.2   && <0.3
+                     , time
+
+                     , shardagnostic-network
+                     , shardagnostic-consensus
+
+  default-language:    Haskell2010
+  ghc-options:         -Wall
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
+                       -Wmissing-export-lists
+                       -Wno-unticked-promoted-constructors
+  if flag(asserts)
+    ghc-options:       -fno-ignore-asserts

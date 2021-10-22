@@ -1,0 +1,69 @@
+name:                shardagnostic-network-testing
+version:             0.1.0.0
+synopsis:            Common modules used for testing in shardagnostic-network and shardagnostic-consensus
+license:             Apache-2.0
+license-files:
+  LICENSE
+  NOTICE
+copyright:           2021 The-Blockchain-Company
+author:              Alexander Vieth, Marcin Szamotulski, rmourey_jr Coutts, Karl Knuttson
+maintainer:
+category:            Network
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=1.10
+
+source-repository head
+  type:     git
+  location: https://github.com/The-Blockchain-Company/shardagnostic-network
+
+library
+  hs-source-dirs:      src
+
+  -- At this experiment/prototype stage everything is exposed.
+  -- This has to be tidied up once the design becomes clear.
+  exposed-modules:
+                       Shardagnostic.Network.Testing.Serialise
+                       Shardagnostic.Network.Testing.QuickCheck
+                       Shardagnostic.Network.Testing.Utils
+  default-language:    Haskell2010
+  other-extensions:    BangPatterns,
+                       DataKinds,
+                       EmptyCase,
+                       ExistentialQuantification,
+                       FlexibleContexts,
+                       FlexibleInstances,
+                       FunctionalDependencies,
+                       GADTs,
+                       GADTSyntax,
+                       GeneralizedNewtypeDeriving,
+                       MultiParamTypeClasses,
+                       NamedFieldPuns,
+                       OverloadedStrings,
+                       PolyKinds,
+                       RankNTypes,
+                       RecordWildCards,
+                       ScopedTypeVariables,
+                       TemplateHaskell,
+                       TupleSections,
+                       TypeApplications,
+                       TypeFamilies,
+                       TypeInType
+  build-depends:       base              >=4.9 && <4.15,
+                       contra-tracer,
+                       io-classes,
+                       io-sim,
+
+                       cborg             >=0.2.1 && <0.3,
+                       serialise         >=0.2 && <0.3,
+                       QuickCheck
+
+  ghc-options:         -Wall
+                       -Wno-unticked-promoted-constructors
+                       -fno-ignore-asserts
+                       -Wcompat
+                       -Wincomplete-uni-patterns
+                       -Wincomplete-record-updates
+                       -Wpartial-fields
+                       -Widentities
+                       -Wredundant-constraints
