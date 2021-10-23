@@ -66,7 +66,7 @@ import           Shardagnostic.Consensus.Ticked
 import           Shardagnostic.Consensus.Util.Condense
 import           Shardagnostic.Consensus.Util.Versioned
 
-import qualified Bcc.Ledger.BaseTypes as SL (ActiveSlotCoeff, Seed, sealPeriod)
+import qualified Bcc.Ledger.BaseTypes as SL (ActiveSlotCoeff, Seed, vestMultiple)
 import           Bcc.Ledger.Crypto (StandardCrypto, VRF)
 import qualified Bcc.Protocol.TOptimum.BHeader as SL (mkSeed, seedEta, seedL)
 import qualified Bcc.Protocol.TOptimum.OCert as Absolute (KESPeriod (..))
@@ -170,7 +170,7 @@ data TOptimum c
 data TOptimumParams = TOptimumParams {
       -- | See 'Globals.slotsPerKESPeriod'.
       toptimumSlotsPerKESPeriod :: !Word64
-      -- | See 'Globals.sealPeriod'
+      -- | See 'Globals.vestMultiple'
     , toptimumSealPeriod :: !Word64
       -- | Active slots coefficient. This parameter represents the proportion
       -- of slots in which blocks should be issued. This can be interpreted as
@@ -479,7 +479,7 @@ mkSophieGlobals TOptimumConfig{..} = SL.Globals {
           (runExcept . withExceptT (T.pack . show))
           toptimumEpochInfo
     , slotsPerKESPeriod             = toptimumSlotsPerKESPeriod
-    , sealPeriod                    = toptimumSealPeriod
+    , vestMultiple                    = toptimumSealPeriod
     , stabilityWindow               = SL.computeStabilityWindow               k toptimumLeaderF
     , randomnessStabilisationWindow = SL.computeRandomnessStabilisationWindow k toptimumLeaderF
     , securityParameter             = k
