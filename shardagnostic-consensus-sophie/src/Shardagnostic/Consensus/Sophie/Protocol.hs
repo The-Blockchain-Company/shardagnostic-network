@@ -171,7 +171,7 @@ data TOptimumParams = TOptimumParams {
       -- | See 'Globals.slotsPerKESPeriod'.
       toptimumSlotsPerKESPeriod :: !Word64
       -- | See 'Globals.vestMultiple'
-    , toptimumSealPeriod :: !Word64
+    , toptimumVestMultiple :: !Word64
       -- | Active slots coefficient. This parameter represents the proportion
       -- of slots in which blocks should be issued. This can be interpreted as
       -- the probability that a party holding all the stake will be elected as
@@ -212,7 +212,7 @@ mkTOptimumParams
   -> TOptimumParams
 mkTOptimumParams maxMajorPV initialNonce genesis = TOptimumParams {
       toptimumSlotsPerKESPeriod = SL.sgSlotsPerKESPeriod genesis
-    , toptimumSealPeriod        = SL.sgSealPeriod        genesis        
+    , toptimumVestMultiple        = SL.sgVestMultiple        genesis        
     , toptimumLeaderF           = SL.sgActiveSlotCoeff   genesis
     , toptimumMaxKESEvo         = SL.sgMaxKESEvolutions  genesis
     , toptimumQuorum            = SL.sgUpdateQuorum      genesis
@@ -479,7 +479,7 @@ mkSophieGlobals TOptimumConfig{..} = SL.Globals {
           (runExcept . withExceptT (T.pack . show))
           toptimumEpochInfo
     , slotsPerKESPeriod             = toptimumSlotsPerKESPeriod
-    , vestMultiple                    = toptimumSealPeriod
+    , vestMultiple                    = toptimumVestMultiple
     , stabilityWindow               = SL.computeStabilityWindow               k toptimumLeaderF
     , randomnessStabilisationWindow = SL.computeRandomnessStabilisationWindow k toptimumLeaderF
     , securityParameter             = k
