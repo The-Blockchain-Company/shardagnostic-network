@@ -186,7 +186,7 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/bcc-prelude
-  tag: 583f26698d2a46b06ea251a4b3f1762d909f9ecb
+  tag: ad2544a45a08f950017198b7b16b768002696406
   --sha256:
   subdir:
     bcc-prelude
@@ -195,7 +195,7 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/bcc-base
-  tag: 027956bcb59f227e9b8c2032aacbb945394f4785
+  tag: 6c39121b136b0f752484092c8843a73d979b2a37
   --sha256:
   subdir:
     base-deriving-via
@@ -211,7 +211,7 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/bcc-ledger-specs
-  tag: 
+  tag: df86be00f15f3f75fca7c855ea37da882d23c465
   --sha256: 
   subdir:
     aurum/impl
@@ -235,7 +235,7 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/zerepoch
-  tag: 37c375ba16089fb9faf825ec356c8b1feb142f2c
+  tag: 7f29fe0c2a871b95aa28fce72e13880114758758
   --sha256:
   subdir:
     zerepoch-ledger-api
@@ -247,13 +247,13 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/shepards
-  tag: f3f78f1f98060115122a23f38eaf2c9a42806b87
+  tag: 768e0f4462c3a92959c1b8508e45f6b081184122
   --sha256:
 
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/bcc-crypto
-  tag: 3e03966459d94e6020364487f85451b641ee64a4
+  tag: 53f1590b7aef15054b7123bd4b77921aabdb0cda
   --sha256: 
 
 -- Drops an instance breaking the Zerepoch code. Should be released to Hackage
