@@ -45,7 +45,7 @@ The API consists of three layers:
 
 • mini-protocol api's, which are GADTs for each mini-protocol under `Shardagnostic.Network.Protocol`; this hides heavy type machinery of session types.  One only needs the typed `Peer` type  when one is using `runPeer` or `runPeerPipelined` function and each protocol exposes a function to create it (e.g. `Shardagnostic.Network.Protocol.ChainSync.Client.chainSyncClientPeer`)
 
-• callback `ptcl -> channel -> m ()` where `ptcl` is enumeration for each mini-protocol, this is either `NodeToNodeProtocols` or `NodeToClientProtocols`.  The callback is wrapped in `ArkApplication` GADT which allows to differentiate the initiator / responder (or client / server) callbacks.
+• callback `ptcl -> channel -> m ()` where `ptcl` is enumeration for each mini-protocol, this is either `NodeToNodeProtocols` or `NodeToClientProtocols`.  The callback is wrapped in `ShardagnosticApplication` GADT which allows to differentiate the initiator / responder (or client / server) callbacks.
 
 • versioning which is a map from version numbers to the above callbacks and version data (the tricky part here is that version data type can be different between different versions; there is a simple way of building this map using a semigroup). You can use `simpleSingletonVersion` if your application does not depend on negotiated version data.  However, `Shardagnostic.Network.NodeToNode` and `Shardagnostic.Network.NodeToClient` expose `V1` api which hides versioning from the caller.
 

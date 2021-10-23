@@ -92,9 +92,9 @@ maximumMiniProtocolLimits =
 --
 
 demoProtocol0 :: RunMiniProtocol appType bytes m a b
-              -> ArkApplication appType addr bytes m a b
+              -> ShardagnosticApplication appType addr bytes m a b
 demoProtocol0 pingPong =
-    ArkApplication $ \_connectionId _controlMessageSTM -> [
+    ShardagnosticApplication $ \_connectionId _controlMessageSTM -> [
       MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 2,
         miniProtocolLimits = maximumMiniProtocolLimits,
@@ -117,7 +117,7 @@ clientPingPong pipelined =
       Nothing
       defaultLocalSocketAddr
   where
-    app :: ArkApplication InitiatorMode addr LBS.ByteString IO () Void
+    app :: ShardagnosticApplication InitiatorMode addr LBS.ByteString IO () Void
     app = demoProtocol0 pingPongInitiator
 
     pingPongInitiator | pipelined =
@@ -159,7 +159,7 @@ serverPingPong =
       $ \_ serverAsync ->
         wait serverAsync   -- block until async exception
   where
-    app :: ArkApplication ResponderMode addr LBS.ByteString IO Void ()
+    app :: ShardagnosticApplication ResponderMode addr LBS.ByteString IO Void ()
     app = demoProtocol0 pingPongResponder
 
     pingPongResponder =
@@ -185,9 +185,9 @@ pingPongServerStandard =
 
 demoProtocol1 :: RunMiniProtocol appType bytes m a b
               -> RunMiniProtocol appType bytes m a b
-              -> ArkApplication appType addr bytes m a b
+              -> ShardagnosticApplication appType addr bytes m a b
 demoProtocol1 pingPong pingPong' =
-    ArkApplication $ \_connectionId _controlMessageSTM -> [
+    ShardagnosticApplication $ \_connectionId _controlMessageSTM -> [
       MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 2,
         miniProtocolLimits = maximumMiniProtocolLimits,
@@ -215,7 +215,7 @@ clientPingPong2 =
       Nothing
       defaultLocalSocketAddr
   where
-    app :: ArkApplication InitiatorMode addr LBS.ByteString IO  () Void
+    app :: ShardagnosticApplication InitiatorMode addr LBS.ByteString IO  () Void
     app = demoProtocol1 pingpong pingpong'
 
     pingpong =
@@ -270,7 +270,7 @@ serverPingPong2 =
       $ \_ serverAsync ->
         wait serverAsync   -- block until async exception
   where
-    app :: ArkApplication ResponderMode addr LBS.ByteString IO Void ()
+    app :: ShardagnosticApplication ResponderMode addr LBS.ByteString IO Void ()
     app = demoProtocol1 pingpong pingpong'
 
     pingpong =

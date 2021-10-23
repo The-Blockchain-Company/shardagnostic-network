@@ -406,11 +406,11 @@ mkApps kernel Tracers {..} Codecs {..} Handlers {..} =
 -------------------------------------------------------------------------------}
 
 -- | A projection from 'NetworkApplication' to a server-side
--- 'ArkApplication' for the node-to-client protocols.
+-- 'ShardagnosticApplication' for the node-to-client protocols.
 responder
   :: N.NodeToClientVersion
   -> Apps m (ConnectionId peer) b b b a
-  -> ArkApplication 'ResponderMode peer b m Void a
+  -> ShardagnosticApplication 'ResponderMode peer b m Void a
 responder version Apps {..} =
     nodeToClientProtocols
       (\peer _shouldStopSTM -> NodeToClientProtocols {

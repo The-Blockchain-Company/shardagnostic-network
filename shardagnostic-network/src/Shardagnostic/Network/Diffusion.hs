@@ -10,7 +10,7 @@ module Shardagnostic.Network.Diffusion
   , DiffusionArguments (..)
   , AcceptedConnectionsLimit (..)
   , DiffusionApplications (..)
-  , ArkApplication (..)
+  , ShardagnosticApplication (..)
   , runDataDiffusion
     -- * re-exports
   , simpleSingletonVersions
@@ -139,7 +139,7 @@ data DiffusionApplications ntnAddr ntcAddr ntnVersionData ntcVersionData m = Dif
       daResponderApplication      :: Versions
                                        NodeToNodeVersion
                                        ntnVersionData
-                                       (ArkApplication
+                                       (ShardagnosticApplication
                                          ResponderMode ntnAddr
                                          ByteString m Void ())
       -- ^ NodeToNode reposnder application (server role)
@@ -147,7 +147,7 @@ data DiffusionApplications ntnAddr ntcAddr ntnVersionData ntcVersionData m = Dif
     , daInitiatorApplication      :: Versions
                                        NodeToNodeVersion
                                        ntnVersionData
-                                       (ArkApplication
+                                       (ShardagnosticApplication
                                          InitiatorMode ntnAddr
                                          ByteString m () Void)
       -- ^ NodeToNode initiator application (client role)
@@ -155,7 +155,7 @@ data DiffusionApplications ntnAddr ntcAddr ntnVersionData ntcVersionData m = Dif
     , daLocalResponderApplication :: Versions
                                        NodeToClientVersion
                                        ntcVersionData
-                                       (ArkApplication
+                                       (ShardagnosticApplication
                                          ResponderMode ntcAddr
                                          ByteString m Void ())
       -- ^ NodeToClient responder applicaton (server role)

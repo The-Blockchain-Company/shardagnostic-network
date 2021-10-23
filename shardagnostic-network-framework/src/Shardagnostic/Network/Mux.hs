@@ -8,7 +8,7 @@
 
 module Shardagnostic.Network.Mux
   ( MuxMode (..)
-  , ArkApplication (..)
+  , ShardagnosticApplication (..)
   , MiniProtocol (..)
   , MiniProtocolNum (..)
   , MiniProtocolLimits (..)
@@ -109,8 +109,8 @@ timeoutWithControlMessage controlMessageSTM stm =
 -- |  Like 'MuxApplication' but using a 'MuxPeer' rather than a raw
 -- @Channel -> m a@ action.
 --
-newtype ArkApplication (mode :: MuxMode) addr bytes m a b =
-        ArkApplication
+newtype ShardagnosticApplication (mode :: MuxMode) addr bytes m a b =
+        ShardagnosticApplication
           (ConnectionId addr -> ControlMessageSTM m -> [MiniProtocol mode bytes m a b])
 
 data MiniProtocol (mode :: MuxMode) bytes m a b =
@@ -165,9 +165,9 @@ data MuxPeer bytes m a where
 toApplication :: (MonadCatch m, MonadAsync m)
               => ConnectionId addr
               -> ControlMessageSTM m
-              -> ArkApplication mode addr LBS.ByteString m a b
+              -> ShardagnosticApplication mode addr LBS.ByteString m a b
               -> Mux.MuxApplication mode m a b
-toApplication connectionId controlMessageSTM (ArkApplication ptcls) =
+toApplication connectionId controlMessageSTM (ShardagnosticApplication ptcls) =
   Mux.MuxApplication
     [ Mux.MuxMiniProtocol {
         Mux.miniProtocolNum    = miniProtocolNum ptcl,

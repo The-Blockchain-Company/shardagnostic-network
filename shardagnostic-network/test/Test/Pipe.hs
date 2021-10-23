@@ -78,9 +78,9 @@ defaultMiniProtocolLimit = 3000000
 -- | The bundle of mini-protocols in our demo protocol: only chain sync
 --
 demoProtocols :: RunMiniProtocol appType bytes m a b
-              -> ArkApplication appType addr bytes m a b
+              -> ShardagnosticApplication appType addr bytes m a b
 demoProtocols chainSync =
-    ArkApplication $ \_connectionId _shouldStopSTM -> [
+    ShardagnosticApplication $ \_connectionId _shouldStopSTM -> [
       MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 2,
         miniProtocolLimits = MiniProtocolLimits {
@@ -157,7 +157,7 @@ demo chain0 updates = do
         let Just expectedChain = Chain.applyChainUpdates updates chain0
             target = Chain.headPoint expectedChain
 
-            consumerApp :: ArkApplication InitiatorMode String BL.ByteString IO () Void
+            consumerApp :: ShardagnosticApplication InitiatorMode String BL.ByteString IO () Void
             consumerApp = demoProtocols chainSyncInitator
 
             chainSyncInitator =
@@ -173,7 +173,7 @@ demo chain0 updates = do
             server :: ChainSyncServer block (Point block) (Tip block) IO ()
             server = ChainSync.chainSyncServerExample () producerVar
 
-            producerApp ::ArkApplication ResponderMode String BL.ByteString IO Void ()
+            producerApp ::ShardagnosticApplication ResponderMode String BL.ByteString IO Void ()
             producerApp = demoProtocols chainSyncResponder
 
             chainSyncResponder =

@@ -144,7 +144,7 @@ data NodeToClientProtocols appType bytes m a b = NodeToClientProtocols {
   }
 
 
--- | Make an 'ArkApplication' for the bundle of mini-protocols that
+-- | Make an 'ShardagnosticApplication' for the bundle of mini-protocols that
 -- make up the overall node-to-client protocol.
 --
 -- This function specifies the wire format protocol numbers as well as the
@@ -158,9 +158,9 @@ data NodeToClientProtocols appType bytes m a b = NodeToClientProtocols {
 nodeToClientProtocols
   :: (ConnectionId addr -> STM m ControlMessage -> NodeToClientProtocols appType bytes m a b)
   -> NodeToClientVersion
-  -> ArkApplication appType addr bytes m a b
+  -> ShardagnosticApplication appType addr bytes m a b
 nodeToClientProtocols protocols version =
-    ArkApplication $ \connectionId controlMessageSTM ->
+    ShardagnosticApplication $ \connectionId controlMessageSTM ->
       case protocols connectionId controlMessageSTM of
         NodeToClientProtocols {
             localChainSyncProtocol,
@@ -213,7 +213,7 @@ versionedNodeToClientProtocols
     -> (ConnectionId LocalAddress -> STM m ControlMessage -> NodeToClientProtocols appType bytes m a b)
     -> Versions NodeToClientVersion
                 NodeToClientVersionData
-                (ArkApplication appType LocalAddress bytes m a b)
+                (ShardagnosticApplication appType LocalAddress bytes m a b)
 versionedNodeToClientProtocols versionNumber versionData protocols =
     simpleSingletonVersions
       versionNumber
@@ -230,7 +230,7 @@ connectTo
   -> NetworkConnectTracers LocalAddress NodeToClientVersion
   -> Versions NodeToClientVersion
               NodeToClientVersionData
-              (ArkApplication InitiatorMode LocalAddress BL.ByteString IO a b)
+              (ShardagnosticApplication InitiatorMode LocalAddress BL.ByteString IO a b)
   -- ^ A dictionary of protocol versions & applications to run on an established
   -- connection.  The application to run will be chosen by initial handshake
   -- protocol (the highest shared version will be chosen).
@@ -260,7 +260,7 @@ withServer
   -> LocalSocket
   -> Versions NodeToClientVersion
               NodeToClientVersionData
-              (ArkApplication ResponderMode LocalAddress BL.ByteString IO a b)
+              (ShardagnosticApplication ResponderMode LocalAddress BL.ByteString IO a b)
   -> ErrorPolicies
   -> IO Void
 withServer sn tracers networkState sd versions errPolicies =
@@ -296,7 +296,7 @@ ncSubscriptionWorker
     -> Versions
         NodeToClientVersion
         NodeToClientVersionData
-        (ArkApplication mode LocalAddress BL.ByteString IO x y)
+        (ShardagnosticApplication mode LocalAddress BL.ByteString IO x y)
     -> IO Void
 ncSubscriptionWorker
   sn

@@ -32,7 +32,7 @@ import           Network.Mux.Trace (MuxTrace, WithMuxBearer)
 
 import           Shardagnostic.Network.Magic (NetworkMagic)
 import           Shardagnostic.Network.Mux (MuxMode (..), MuxPeer (..),
-                     ArkApplication, RunMiniProtocol (..),
+                     ShardagnosticApplication, RunMiniProtocol (..),
                      ControlMessage (..))
 import           Shardagnostic.Network.NodeToClient (ClientSubscriptionParams (..),
                      ConnectionId, LocalAddress,
@@ -96,7 +96,7 @@ versionedProtocols ::
   -> Versions
        NodeToClientVersion
        NodeToClientVersionData
-       (ArkApplication appType LocalAddress bytes m a b)
+       (ShardagnosticApplication appType LocalAddress bytes m a b)
 versionedProtocols codecConfig networkMagic callback =
     foldMapVersions applyVersion $
       Map.toList $ supportedNodeToClientVersions (Proxy @blk)
@@ -106,7 +106,7 @@ versionedProtocols codecConfig networkMagic callback =
       -> Versions
            NodeToClientVersion
            NodeToClientVersionData
-           (ArkApplication appType LocalAddress bytes m a b)
+           (ShardagnosticApplication appType LocalAddress bytes m a b)
     applyVersion (version, blockVersion) =
       versionedNodeToClientProtocols
         version

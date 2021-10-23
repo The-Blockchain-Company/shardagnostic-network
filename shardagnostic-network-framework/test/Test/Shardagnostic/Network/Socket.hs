@@ -115,9 +115,9 @@ defaultMiniProtocolLimit = 3000000
 -- Allow to run a singly req-resp protocol.
 --
 testProtocols2 :: RunMiniProtocol appType bytes m a b
-               -> ArkApplication appType addr bytes m a b
+               -> ShardagnosticApplication appType addr bytes m a b
 testProtocols2 reqResp =
-    ArkApplication $ \_connectionId _controlMessageSTM -> [
+    ShardagnosticApplication $ \_connectionId _controlMessageSTM -> [
       MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 4,
         miniProtocolLimits = MiniProtocolLimits {
@@ -202,7 +202,7 @@ prop_socket_send_recv initiatorAddr responderAddr f xs =
     siblingVar <- newTVarIO 2
 
     let -- Server Node; only req-resp server
-        responderApp :: ArkApplication ResponderMode Socket.SockAddr BL.ByteString IO Void ()
+        responderApp :: ShardagnosticApplication ResponderMode Socket.SockAddr BL.ByteString IO Void ()
         responderApp = testProtocols2 reqRespResponder
 
         reqRespResponder =
@@ -220,7 +220,7 @@ prop_socket_send_recv initiatorAddr responderAddr f xs =
             pure ((), trailing)
 
         -- Client Node; only req-resp client
-        initiatorApp :: ArkApplication InitiatorMode Socket.SockAddr BL.ByteString IO () Void
+        initiatorApp :: ShardagnosticApplication InitiatorMode Socket.SockAddr BL.ByteString IO () Void
         initiatorApp = testProtocols2 reqRespInitiator
 
         reqRespInitiator =
@@ -299,7 +299,7 @@ prop_socket_recv_error f rerr =
 
     sv   <- newEmptyTMVarIO
 
-    let app :: ArkApplication ResponderMode Socket.SockAddr BL.ByteString IO Void ()
+    let app :: ShardagnosticApplication ResponderMode Socket.SockAddr BL.ByteString IO Void ()
         app = testProtocols2 reqRespResponder
 
         reqRespResponder =
@@ -476,7 +476,7 @@ prop_socket_client_connect_error _ xs =
 
     cv <- newEmptyTMVarIO
 
-    let app :: ArkApplication InitiatorMode Socket.SockAddr BL.ByteString IO () Void
+    let app :: ShardagnosticApplication InitiatorMode Socket.SockAddr BL.ByteString IO () Void
         app = testProtocols2 reqRespInitiator
 
         reqRespInitiator =

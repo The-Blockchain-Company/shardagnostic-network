@@ -74,9 +74,9 @@ defaultMiniProtocolLimit = 3000000
 -- | The bundle of mini-protocols in our test protocol: only chain sync
 --
 testProtocols1 :: RunMiniProtocol appType bytes m a b
-               -> ArkApplication appType addr bytes m a b
+               -> ShardagnosticApplication appType addr bytes m a b
 testProtocols1 chainSync =
-    ArkApplication $ \_connectionId _shouldStopSTM -> [
+    ShardagnosticApplication $ \_connectionId _shouldStopSTM -> [
       MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 2,
         miniProtocolLimits = MiniProtocolLimits {
@@ -122,7 +122,7 @@ demo chain0 updates = withIOManager $ \iocp -> do
         target = Chain.headPoint expectedChain
 
         initiatorApp
-          :: ArkApplication InitiatorMode Socket.SockAddr
+          :: ShardagnosticApplication InitiatorMode Socket.SockAddr
                                   BL.ByteString IO () Void
         initiatorApp = testProtocols1 chainSyncInitator
 
@@ -138,7 +138,7 @@ demo chain0 updates = withIOManager $ \iocp -> do
         server = ChainSync.chainSyncServerExample () producerVar
 
         responderApp
-          :: ArkApplication ResponderMode Socket.SockAddr
+          :: ShardagnosticApplication ResponderMode Socket.SockAddr
                                   BL.ByteString IO Void ()
         responderApp = testProtocols1 chainSyncResponder
 

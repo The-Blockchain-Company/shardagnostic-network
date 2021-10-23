@@ -65,9 +65,9 @@ _sayTracer = Tracer say
 
 
 testProtocols :: RunMiniProtocol appType bytes m a b
-              -> ArkApplication appType addr bytes m a b
+              -> ShardagnosticApplication appType addr bytes m a b
 testProtocols chainSync =
-    ArkApplication $ \_connectionId _shouldStopSTM -> [
+    ShardagnosticApplication $ \_connectionId _shouldStopSTM -> [
       MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 2,
         miniProtocolLimits = MiniProtocolLimits {

@@ -70,9 +70,9 @@ defaultMiniProtocolLimit :: Int
 defaultMiniProtocolLimit = 3000000
 
 testProtocols1 :: RunMiniProtocol appType bytes m a b
-               -> ArkApplication appType addr bytes m a b
+               -> ShardagnosticApplication appType addr bytes m a b
 testProtocols1 chainSync =
-    ArkApplication $ \_connectionId _controlMessageSTM -> [
+    ShardagnosticApplication $ \_connectionId _controlMessageSTM -> [
        MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 2,
         miniProtocolLimits = MiniProtocolLimits {
@@ -86,9 +86,9 @@ testProtocols1 chainSync =
 -- Allow to run a singly req-resp protocol.
 --
 testProtocols2 :: RunMiniProtocol appType bytes m a b
-               -> ArkApplication appType addr bytes m a b
+               -> ShardagnosticApplication appType addr bytes m a b
 testProtocols2 reqResp =
-    ArkApplication $ \_connectionId _controlMessageSTM -> [
+    ShardagnosticApplication $ \_connectionId _controlMessageSTM -> [
        MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 4,
         miniProtocolLimits = MiniProtocolLimits {
@@ -547,7 +547,7 @@ prop_send_recv f xs _first = ioProperty $ withIOManager $ \iocp -> do
     clientTbl <- newConnectionTable
 
     let -- Server Node; only req-resp server
-        responderApp :: ArkApplication ResponderMode Socket.SockAddr BL.ByteString IO Void ()
+        responderApp :: ShardagnosticApplication ResponderMode Socket.SockAddr BL.ByteString IO Void ()
         responderApp = testProtocols2 reqRespResponder
 
         reqRespResponder =
@@ -562,7 +562,7 @@ prop_send_recv f xs _first = ioProperty $ withIOManager $ \iocp -> do
               <$ waitSiblingSub siblingVar
 
         -- Client Node; only req-resp client
-        initiatorApp :: ArkApplication InitiatorMode Socket.SockAddr BL.ByteString IO () Void
+        initiatorApp :: ShardagnosticApplication InitiatorMode Socket.SockAddr BL.ByteString IO () Void
         initiatorApp = testProtocols2 reqRespInitiator
 
         reqRespInitiator =
@@ -696,7 +696,7 @@ prop_send_recv_init_and_rsp f xs = ioProperty $ withIOManager $ \iocp -> do
 
   where
 
-    appX :: ReqRspCfg -> ArkApplication InitiatorResponderMode Socket.SockAddr BL.ByteString IO () ()
+    appX :: ReqRspCfg -> ShardagnosticApplication InitiatorResponderMode Socket.SockAddr BL.ByteString IO () ()
     appX cfg = testProtocols2 (reqResp cfg)
 
     reqResp ReqRspCfg {rrcTag, rrcServerVar, rrcClientVar, rrcSiblingVar} =

@@ -202,7 +202,7 @@ defaultMiniProtocolParameters = MiniProtocolParameters {
     , txSubmissionMaxUnacked       = 10
   }
 
--- | Make an 'ArkApplication' for the bundle of mini-protocols that
+-- | Make an 'ShardagnosticApplication' for the bundle of mini-protocols that
 -- make up the overall node-to-node protocol.
 --
 -- This function specifies the wire format protocol numbers.
@@ -224,14 +224,14 @@ nodeToNodeProtocols
   :: MiniProtocolParameters
   -> (ConnectionId addr -> STM m ControlMessage -> NodeToNodeProtocols appType bytes m a b)
   -> NodeToNodeVersion
-  -> ArkApplication appType addr bytes m a b
+  -> ShardagnosticApplication appType addr bytes m a b
 nodeToNodeProtocols MiniProtocolParameters {
                         chainSyncPipeliningHighMark,
                         blockFetchPipeliningMax,
                         txSubmissionMaxUnacked
                       }
                     protocols _version =
-  ArkApplication $ \connectionId controlMessageSTM ->
+  ShardagnosticApplication $ \connectionId controlMessageSTM ->
     case protocols connectionId controlMessageSTM of
       NodeToNodeProtocols {
           chainSyncProtocol,
@@ -397,7 +397,7 @@ connectTo
   -> NetworkConnectTracers Socket.SockAddr NodeToNodeVersion
   -> Versions NodeToNodeVersion
               NodeToNodeVersionData
-              (ArkApplication InitiatorMode Socket.SockAddr BL.ByteString IO a b)
+              (ShardagnosticApplication InitiatorMode Socket.SockAddr BL.ByteString IO a b)
   -> Maybe Socket.SockAddr
   -> Socket.SockAddr
   -> IO ()
@@ -423,7 +423,7 @@ withServer
   -> Socket.Socket
   -> Versions NodeToNodeVersion
               NodeToNodeVersionData
-              (ArkApplication ResponderMode Socket.SockAddr BL.ByteString IO a b)
+              (ShardagnosticApplication ResponderMode Socket.SockAddr BL.ByteString IO a b)
   -> ErrorPolicies
   -> IO Void
 withServer sn tracers networkState acceptedConnectionsLimit sd versions errPolicies =
@@ -455,7 +455,7 @@ ipSubscriptionWorker
     -> Versions
         NodeToNodeVersion
         NodeToNodeVersionData
-        (ArkApplication mode Socket.SockAddr BL.ByteString IO x y)
+        (ShardagnosticApplication mode Socket.SockAddr BL.ByteString IO x y)
     -> IO Void
 ipSubscriptionWorker
   sn
@@ -497,7 +497,7 @@ dnsSubscriptionWorker
     -> Versions
         NodeToNodeVersion
         NodeToNodeVersionData
-        (ArkApplication mode Socket.SockAddr BL.ByteString IO x y)
+        (ShardagnosticApplication mode Socket.SockAddr BL.ByteString IO x y)
     -> IO Void
 dnsSubscriptionWorker
   sn

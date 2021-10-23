@@ -136,9 +136,9 @@ maximumMiniProtocolLimits =
 
 demoProtocol2
   :: RunMiniProtocol appType bytes m a b -- ^ chainSync
-  -> ArkApplication appType addr bytes m a b
+  -> ShardagnosticApplication appType addr bytes m a b
 demoProtocol2 chainSync =
-    ArkApplication $ \_connectionId _shouldStopSTM -> [
+    ShardagnosticApplication $ \_connectionId _shouldStopSTM -> [
       MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 2,
         miniProtocolLimits = maximumMiniProtocolLimits,
@@ -166,7 +166,7 @@ clientChainSync sockPaths = withIOManager $ \iocp ->
         (localAddressFromPath sockPath)
 
   where
-    app :: ArkApplication InitiatorMode addr LBS.ByteString IO () Void
+    app :: ShardagnosticApplication InitiatorMode addr LBS.ByteString IO () Void
     app = demoProtocol2 chainSync
 
     chainSync =
@@ -201,7 +201,7 @@ serverChainSync sockAddr = withIOManager $ \iocp -> do
   where
     prng = mkStdGen 0
 
-    app :: ArkApplication ResponderMode addr LBS.ByteString IO Void ()
+    app :: ShardagnosticApplication ResponderMode addr LBS.ByteString IO Void ()
     app = demoProtocol2 chainSync
 
     chainSync =
@@ -233,9 +233,9 @@ codecChainSync =
 demoProtocol3
   :: (ConnectionId addr -> RunMiniProtocol appType bytes m a b) -- ^ chainSync
   -> (ConnectionId addr -> RunMiniProtocol appType bytes m a b) -- ^ blockFetch
-  -> ArkApplication appType addr bytes m a b
+  -> ShardagnosticApplication appType addr bytes m a b
 demoProtocol3 chainSync blockFetch =
-    ArkApplication $ \connectionId _shouldStopSTM -> [
+    ShardagnosticApplication $ \connectionId _shouldStopSTM -> [
       MiniProtocol {
         miniProtocolNum    = MiniProtocolNum 2,
         miniProtocolLimits = maximumMiniProtocolLimits,
@@ -257,7 +257,7 @@ clientBlockFetch sockAddrs = withIOManager $ \iocp -> do
     candidateChainsVar <- newTVarIO Map.empty
     currentChainVar    <- newTVarIO genesisAnchoredFragment
 
-    let app :: ArkApplication InitiatorMode LocalAddress LBS.ByteString IO () Void
+    let app :: ShardagnosticApplication InitiatorMode LocalAddress LBS.ByteString IO () Void
         app = demoProtocol3 chainSync blockFetch
 
         chainSync :: LocalConnectionId
@@ -436,7 +436,7 @@ serverBlockFetch sockAddr = withIOManager $ \iocp -> do
   where
     prng = mkStdGen 0
 
-    app :: ArkApplication ResponderMode LocalAddress LBS.ByteString IO Void ()
+    app :: ShardagnosticApplication ResponderMode LocalAddress LBS.ByteString IO Void ()
     app = demoProtocol3 chainSync blockFetch
 
     chainSync :: LocalConnectionId

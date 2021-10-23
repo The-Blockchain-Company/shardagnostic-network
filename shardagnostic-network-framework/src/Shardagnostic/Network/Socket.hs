@@ -201,7 +201,7 @@ connectToNode
   -> VersionDataCodec CBOR.Term vNumber vData
   -> NetworkConnectTracers addr vNumber
   -> (vData -> vData -> Accept vData)
-  -> Versions vNumber vData (ArkApplication appType addr BL.ByteString IO a b)
+  -> Versions vNumber vData (ShardagnosticApplication appType addr BL.ByteString IO a b)
   -- ^ application to run over the connection
   -> Maybe addr
   -- ^ local address; the created socket will bind to it
@@ -241,7 +241,7 @@ connectToNode'
   -> VersionDataCodec CBOR.Term vNumber vData
   -> NetworkConnectTracers addr vNumber
   -> (vData -> vData -> Accept vData)
-  -> Versions vNumber vData (ArkApplication appType addr BL.ByteString IO a b)
+  -> Versions vNumber vData (ShardagnosticApplication appType addr BL.ByteString IO a b)
   -- ^ application to run over the connection
   -> fd
   -> IO ()
@@ -295,7 +295,7 @@ connectToNodeSocket
   -> VersionDataCodec CBOR.Term vNumber vData
   -> NetworkConnectTracers Socket.SockAddr vNumber
   -> (vData -> vData -> Accept vData)
-  -> Versions vNumber vData (ArkApplication appType Socket.SockAddr BL.ByteString IO a b)
+  -> Versions vNumber vData (ShardagnosticApplication appType Socket.SockAddr BL.ByteString IO a b)
   -- ^ application to run over the connection
   -> Socket.Socket
   -> IO ()
@@ -317,7 +317,7 @@ data SomeResponderApplication addr bytes m b where
      SomeResponderApplication
        :: forall appType addr bytes m a b.
           Mx.HasResponder appType ~ True
-       => (ArkApplication appType addr bytes m a b)
+       => (ShardagnosticApplication appType addr bytes m a b)
        -> SomeResponderApplication addr bytes m b
 
 -- |

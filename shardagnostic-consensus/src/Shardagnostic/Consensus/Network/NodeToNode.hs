@@ -652,7 +652,7 @@ mkApps kernel Tracers {..} mkCodecs genChainSyncTimeout Handlers {..} =
 -------------------------------------------------------------------------------}
 
 -- | A projection from 'NetworkApplication' to a client-side
--- 'ArkApplication' for the node-to-node protocols.
+-- 'ShardagnosticApplication' for the node-to-node protocols.
 --
 -- Implementation note: network currently doesn't enable protocols conditional
 -- on the protocol version, but it eventually may; this is why @_version@ is
@@ -661,7 +661,7 @@ initiator
   :: MiniProtocolParameters
   -> NodeToNodeVersion
   -> Apps m (ConnectionId peer) b b b b b a
-  -> ArkApplication 'InitiatorMode peer b m a Void
+  -> ShardagnosticApplication 'InitiatorMode peer b m a Void
 initiator miniProtocolParameters version Apps {..} =
     nodeToNodeProtocols
       miniProtocolParameters
@@ -686,14 +686,14 @@ initiator miniProtocolParameters version Apps {..} =
       version
 
 -- | A projection from 'NetworkApplication' to a server-side
--- 'ArkApplication' for the node-to-node protocols.
+-- 'ShardagnosticApplication' for the node-to-node protocols.
 --
 -- See 'initiatorNetworkApplication' for rationale for the @_version@ arg.
 responder
   :: MiniProtocolParameters
   -> NodeToNodeVersion
   -> Apps m (ConnectionId peer) b b b b b a
-  -> ArkApplication 'ResponderMode peer b m Void a
+  -> ShardagnosticApplication 'ResponderMode peer b m Void a
 responder miniProtocolParameters version Apps {..} =
     nodeToNodeProtocols
       miniProtocolParameters
