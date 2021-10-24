@@ -432,10 +432,10 @@ encodeColeTransition (ColeTransitionInfo bNos)
       <> mconcat (map aux (Map.toAscList bNos))
   where
     aux :: (Update.ProtocolVersion, BlockNo) -> Encoding
-    aux (Update.ProtocolVersion { pvMajor, pvSeal }, bno) = mconcat [
+    aux (Update.ProtocolVersion { pvMajor, pvSentry }, bno) = mconcat [
           CBOR.encodeListLen 3
         , encode pvMajor
-        , encode pvSeal
+        , encode pvSentry
         , encode bno
         ]
 
@@ -461,9 +461,9 @@ decodeColeTransition = do
     aux = do
         enforceSize "decodeColeTransition.aux" 3
         pvMajor <- decode
-        pvSeal <- decode
+        pvSentry <- decode
         bno     <- decode
-        return (Update.ProtocolVersion { pvMajor, pvSeal}, bno)
+        return (Update.ProtocolVersion { pvMajor, pvSentry}, bno)
 
 encodeColeLedgerState :: LedgerState ColeBlock -> Encoding
 encodeColeLedgerState ColeLedgerState{..} = mconcat [

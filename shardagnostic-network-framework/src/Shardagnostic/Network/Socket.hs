@@ -311,7 +311,7 @@ connectToNodeSocket iocp handshakeCodec handshakeTimeLimits versionDataCodec tra
       sd
 
 -- |
--- Wrapper for ArkResponderApplication and ArkInitiatorAndResponderApplication.
+-- Wrapper for ShardagnosticResponderApplication and ShardagnosticInitiatorAndResponderApplication.
 --
 data SomeResponderApplication addr bytes m b where
      SomeResponderApplication

@@ -92,7 +92,7 @@ versionedProtocols ::
      --
      -- TODO: the 'RunOrStop' might not be needed for @node-to-client@, hence
      -- it's not exposed in 'subscribe'. We should provide
-     -- 'ArkClientApplication', which does not include it.
+     -- 'ShardagnosticClientApplication', which does not include it.
   -> Versions
        NodeToClientVersion
        NodeToClientVersionData

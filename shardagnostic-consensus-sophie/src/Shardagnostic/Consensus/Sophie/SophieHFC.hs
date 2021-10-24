@@ -145,7 +145,7 @@ sophieTransition SophiePartialLedgerConfig{..}
 
     isTransition :: Sophie.Inspect.ProtocolUpdate era -> Maybe EpochNo
     isTransition Sophie.Inspect.ProtocolUpdate{..} = do
-         SL.ProtVer major _seal <- proposalVersion
+         SL.ProtVer major _sentry <- proposalVersion
          guard $ fromIntegral major == transitionMajorVersion
          guard $ proposalReachedQuorum
          guard $ sophieAfterVoting >= fromIntegral k
