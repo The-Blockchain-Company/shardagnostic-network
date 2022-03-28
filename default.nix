@@ -10,7 +10,7 @@
 , sourcesOverride ? { }
   # pinned version of nixpkgs augmented with overlays (tbco-nix and our packages).
 , pkgs ? import ./nix { inherit system crossSystem config sourcesOverride; }
-, gitrev ? pkgs.bcccoinNix.commitIdFromGitRepoOrZero ./.git
+, gitrev ? pkgs.tbcoNix.commitIdFromGitRepoOrZero ./.git
 }:
 with pkgs; with commonLib;
 let

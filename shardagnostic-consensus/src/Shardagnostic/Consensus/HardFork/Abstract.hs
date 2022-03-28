@@ -20,7 +20,7 @@ class HasHardForkHistory blk where
   -- will instantiate 'HardForkIndices' to the types of the blocks involved
   -- in the hard fork, e.g., we might have something like
   --
-  -- > '[ColeBlock, SophieBlock, MosesBlock]
+  -- > '[ColeBlock, SophieBlock, CharlesBlock]
   type family HardForkIndices blk :: [Type]
 
   -- | Summary of the hard fork state

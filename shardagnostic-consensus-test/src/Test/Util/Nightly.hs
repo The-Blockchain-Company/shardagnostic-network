@@ -3,7 +3,7 @@ module Test.Util.Nightly (
     BcccoinNightlyEnabled (..)
   , askBcccoinNightlyEnabled
   , defaultMainWithBcccoinNightly
-  , bcccoinNightlyIngredient
+  , tbcoNightlyIngredient
   ) where
 
 import           Data.Proxy (Proxy (..))
@@ -11,15 +11,15 @@ import           Test.Tasty
 import           Test.Tasty.Ingredients
 import           Test.Tasty.Options
 
--- | 'defaultMain' extended with 'bcccoinNightlyIngredient'
+-- | 'defaultMain' extended with 'tbcoNightlyIngredient'
 defaultMainWithBcccoinNightly :: TestTree -> IO ()
 defaultMainWithBcccoinNightly =
-    defaultMainWithIngredients (bcccoinNightlyIngredient : defaultIngredients)
+    defaultMainWithIngredients (tbcoNightlyIngredient : defaultIngredients)
 
 -- | This ingredient merely adds the 'BcccoinNightlyEnabled' 'Option' to the
 -- @tasty@ command-line parser.
-bcccoinNightlyIngredient :: Ingredient
-bcccoinNightlyIngredient =
+tbcoNightlyIngredient :: Ingredient
+tbcoNightlyIngredient =
     TestManager [Option (Proxy :: Proxy BcccoinNightlyEnabled)] $
     \_optionSet _testTree -> Nothing
 

@@ -40,7 +40,7 @@
 }:
 
 with
-(import pkgs.bcccoinNix.release-lib)
+(import pkgs.tbcoNix.release-lib)
 {
   inherit pkgs;
   inherit supportedSystems supportedCrossSystems scrubJobs projectArgs;

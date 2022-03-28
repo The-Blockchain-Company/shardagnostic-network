@@ -8,7 +8,7 @@ license-files:
   NOTICE
 copyright:           2021 The-Blockchain-Company
 author:              rmourey_jr Coutts, Marc Fontaine, Karl Knutsson, Marcin Szamotulski, Alexander Vieth, Neil Davies
-maintainer:          duncan@well-typed.com, marcin.szamotulski@tbco.io, marc.fontaine@tbco.io, karl.knutsson@tbco.io, alex@well-typed.com, neil.davies@pnsol.com
+maintainer:          duncan@well-typed.com, marcin.szamotulski@blockchain-company.io, marc.fontaine@blockchain-company.io, karl.knutsson@blockchain-company.io, alex@well-typed.com, neil.davies@pnsol.com
 category:            Network
 build-type:          Simple
 extra-source-files:  CHANGELOG.md

@@ -14,7 +14,7 @@ license-files:
   NOTICE
 copyright:           2021 The-Blockchain-Company
 author:              Alexander Vieth, rmourey_jr Coutts, Marcin Szamotulski
-maintainer:          alex@well-typed.com, duncan@well-typed.com, marcin.szamotulski@tbco.io
+maintainer:          alex@well-typed.com, duncan@well-typed.com, marcin.szamotulski@blockchain-company.io
 -- category:
 build-type:          Simple
 extra-source-files:  CHANGELOG.md

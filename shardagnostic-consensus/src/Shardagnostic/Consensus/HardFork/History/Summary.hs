@@ -249,7 +249,7 @@ summaryWithExactly = Summary . exactlyWeakenNonEmpty
 -- per era, emphasizing that this information is statically known.
 --
 -- The entry indices themselves are not used here, but the idea is that they
--- look something like @'[ColeBlock, SophieBlock, MosesBlock]@ and do affect
+-- look something like @'[ColeBlock, SophieBlock, CharlesBlock]@ and do affect
 -- the hard fork combinator. So far this is a list of block types, since most
 -- of consensus is indexed by block types.
 newtype Shape xs = Shape { getShape :: Exactly xs EraParams }
@@ -270,8 +270,8 @@ singletonShape params = Shape (exactlyOne params)
 -- ledger dependent, but it should imply that this is no longer subject to
 -- rollback.
 data Transitions :: [Type] -> Type where
-  -- | If the indices are, say, @'[Cole, Sophie, Moses]@, then we can have
-  -- have at most two transitions: one to Sophie, and one to Moses. There
+  -- | If the indices are, say, @'[Cole, Sophie, Charles]@, then we can have
+  -- have at most two transitions: one to Sophie, and one to Charles. There
   -- cannot be a transition /to/ the initial ledger.
   Transitions :: AtMost xs EpochNo -> Transitions (x ': xs)
 

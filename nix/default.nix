@@ -6,7 +6,7 @@
 let
   sources = import ./sources.nix { pkgs = import nixpkgs { }; }
     // sourcesOverride;
-  bcccoinNixMain = import sources.tbco-nix { };
+  tbcoNixMain = import sources.tbco-nix { };
   haskellNix = import sources."haskell.nix" { inherit system sourcesOverride; };
   haskellNixArgs = haskellNix.nixpkgsArgs;
   nixpkgs =
@@ -25,17 +25,17 @@ let
     # Haskell.nix (https://github.com/The-Blockchain-Company/haskell.nix)
     haskellNixArgs.overlays
     # haskell-nix.haskellLib.extra: some useful extra utility functions for haskell.nix
-    ++ bcccoinNixMain.overlays.haskell-nix-extra
-    ++ bcccoinNixMain.overlays.crypto
-    # bcccoinNix: nix utilities and niv:
-    ++ bcccoinNixMain.overlays.bcccoinNix
-    ++ bcccoinNixMain.overlays.utils
+    ++ tbcoNixMain.overlays.haskell-nix-extra
+    ++ tbcoNixMain.overlays.crypto
+    # tbcoNix: nix utilities and niv:
+    ++ tbcoNixMain.overlays.tbcoNix
+    ++ tbcoNixMain.overlays.utils
     # our own overlays:
     ++ [
       (pkgs: _: with pkgs; {
 
         # commonLib: mix pkgs.lib with tbco-nix utils and our own:
-        commonLib = lib // bcccoinNix
+        commonLib = lib // tbcoNix
         // import ./util.nix { inherit haskell-nix; }
         # also expose our sources and overlays
         // { inherit overlays sources; };

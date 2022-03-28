@@ -51,7 +51,7 @@ You'll eventually also need to be in the `CODEOWNERS` file.
       [the repository
       settings](https://github.com/The-Blockchain-Company/shardagnostic-network/settings/access).
     * Then, someone with permissions to do so must click the "Update" in [the
-      `bors` settings](https://bors-ng.aws.bcccoindev.io/repositories/8/settings).
+      `bors` settings](https://bors-ng.aws.tbcodev.io/repositories/8/settings).
 
 The general TBCO onboarding should have discussed establishing hardware-based
 Two Factor Authentication on your GitHub account; that's another prerequisite.

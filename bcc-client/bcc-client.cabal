@@ -8,7 +8,7 @@ license-files:
   NOTICE
 copyright:           2021 The-Blockchain-Company
 author:              TBCO Engineering Team
-maintainer:          operations@tbco.io
+maintainer:          operations@blockchain-company.io
 category:            Network
 build-type:          Simple
 -- extra-source-files:  ChangeLog.md

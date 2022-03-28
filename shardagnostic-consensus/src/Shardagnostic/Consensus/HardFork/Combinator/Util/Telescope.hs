@@ -79,7 +79,7 @@ import qualified Shardagnostic.Consensus.HardFork.Combinator.Util.Tails as Tails
 --
 -- > TZ currentColeState
 -- > TS pastColeState $ TZ currentSophieState
--- > TS pastColeState $ TS pastSophieState $ TZ currentMosesState
+-- > TS pastColeState $ TS pastSophieState $ TZ currentCharlesState
 --
 -- The 'Telescope' API mostly follows @sop-core@ conventions, supporting
 -- functor ('hmap', 'hcmap'), applicative ('hap', 'hpure'), foldable

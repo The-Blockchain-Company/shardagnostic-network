@@ -2,7 +2,7 @@ cabal-version:      2.4
 name:               unsoundswitch
 version:            0.1.0.0
 author:             TBCO Engineering Team
-maintainer:         operations@tbco.io
+maintainer:         operations@blockchain-company.io
 
 executable unsoundswitch
     main-is:          UnsoundSwitch.hs

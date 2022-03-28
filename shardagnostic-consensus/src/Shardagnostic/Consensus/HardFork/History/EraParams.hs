@@ -46,7 +46,7 @@ import           Shardagnostic.Consensus.Config.SecurityParam
   > ^
   > \-- tip
 
-  where we have (in this example) three eras (say, Cole, Sophie and Moses)
+  where we have (in this example) three eras (say, Cole, Sophie and Charles)
   and therefore two hard fork transitions. Hard forks happen at epoch
   boundaries; the exact 'EpochNo' of each hard fork is determined by the era
   preceding it. Naturally, the exact 'EpochNo' of /past/ hard forks is known:

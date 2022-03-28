@@ -106,13 +106,13 @@ instance SerialiseConstraintsHFC ColeBlock
 -- We also want to be able to efficiently detect (without having to peek far
 -- ahead) whether we're dealing with a Cole or Sophie block, so that we can
 -- invoke the right decoder. We plan to have a few more hard forks after
--- Sophie (Moses, Basho, David), so we want a future-proof envelope for
+-- Sophie (Charles, Brandon, Sjobs), so we want a future-proof envelope for
 -- distinguishing the different block types, i.e., a byte indicating the era.
 --
 -- Cole does not provide such an envelope. However, a Cole block is a CBOR
 -- 2-tuple with the first element being a tag ('Word': 0 = EBB; 1 = regular
 -- block) and the second being the payload. We can easily extend this encoding
--- format with support for Sophie, Moses, etc.
+-- format with support for Sophie, Charles, etc.
 --
 -- We encode a 'BccBlock' as the same CBOR 2-tuple as a Cole block, but
 -- we use the tags after 1 for the hard forks after Cole:
@@ -122,7 +122,7 @@ instance SerialiseConstraintsHFC ColeBlock
 -- 2. Sophie block
 -- 3. Evie block
 -- 4. Jen block
--- 5. Moses block
+-- 5. Charles block
 -- 6. etc.
 --
 -- For more details, see:
