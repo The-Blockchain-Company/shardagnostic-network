@@ -140,7 +140,7 @@ test-suite test
                        -Wredundant-constraints
                        -Wno-unticked-promoted-constructors
   if flag(ipv6)
-    cpp-options:       -DOUROBOROS_NETWORK_IPV6
+    cpp-options:       -DSHARDAGNOSTIC_NETWORK_IPV6
 
 executable mux-demo
   import:              demo-deps

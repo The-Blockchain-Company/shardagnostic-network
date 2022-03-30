@@ -73,9 +73,9 @@ import           Text.Show.Functions ()
 
 {-
  - The travis build hosts does not support IPv6 so those test cases are hidden
- - behind the OUROBOROS_NETWORK_IPV6 define for now.
+ - behind the SHARDAGNOSTIC_NETWORK_IPV6 define for now.
  -}
--- #define OUROBOROS_NETWORK_IPV6
+-- #define SHARDAGNOSTIC_NETWORK_IPV6
 
 --
 -- The list of all tests
@@ -85,7 +85,7 @@ tests :: TestTree
 tests =
   testGroup "Socket"
   [ testProperty "socket send receive IPv4"              prop_socket_send_recv_ipv4
-#ifdef OUROBOROS_NETWORK_IPV6
+#ifdef SHARDAGNOSTIC_NETWORK_IPV6
   , after AllFinish "socket send receive IPv4" $
     testProperty "socket send receive IPv6"              prop_socket_send_recv_ipv6
 #define LAST_IP_TEST "socket send receive IPv6"
@@ -143,7 +143,7 @@ prop_socket_send_recv_ipv4 f xs = ioProperty $ do
     prop_socket_send_recv (Socket.addrAddress client) (Socket.addrAddress server) f xs
 
 
-#ifdef OUROBOROS_NETWORK_IPV6
+#ifdef SHARDAGNOSTIC_NETWORK_IPV6
 
 -- | Send and receive over IPv6
 prop_socket_send_recv_ipv6 :: (Int ->  Int -> (Int, Int))
