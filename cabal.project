@@ -179,7 +179,7 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/tbco-monitoring-framework
-  tag: 4d9367fd730a383a25049621dd442632c8316f50
+  tag: 678222a302541030fe317c3d9d3c1a25f4c04402
   --sha256: 
   subdir: contra-tracer
 
