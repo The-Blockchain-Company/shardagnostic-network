@@ -106,7 +106,7 @@ testCfg = pInfoConfig protocolInfo
       protocolInfoCole $ ProtocolParamsCole {
           coleGenesis                = CC.dummyConfig
         , colePbftSignatureThreshold = Just (PBftSignatureThreshold 0.5)
-        , coleProtocolVersion        = CC.Update.ProtocolVersion 1 0 0
+        , coleProtocolVersion        = CC.Update.ProtocolVersion 1 0
         , coleSoftwareVersion        = CC.Update.SoftwareVersion (CC.Update.ApplicationName "Bcc Test") 2
         , coleLeaderCredentials      = Nothing
         , coleMaxTxCapacityOverrides = TxLimits.mkOverrides TxLimits.noOverridesMeasure
