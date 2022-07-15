@@ -95,7 +95,7 @@ import           Shardagnostic.Consensus.Sophie.Node
 import           Shardagnostic.Consensus.Sophie.Protocol
 
 import qualified Test.Sophie.Spec.Ledger.Generator.Core as Gen
-import           Test.Sophie.Spec.Ledger.Utils (unsafeBoundRational)
+import           Test.Sophie.Spec.Ledger.SentryUtils (unsafeBoundRational)
 
 {-------------------------------------------------------------------------------
   The decentralization parameter
