@@ -104,7 +104,7 @@ mkLeaderCredentials genesisConfig genesisSecrets (CoreNodeId i) =
 -- Haddock comment on 'mkProtocolColeAndHardForkTxs'.
 --
 theProposedProtocolVersion :: Update.ProtocolVersion
-theProposedProtocolVersion = Update.ProtocolVersion 1 0 0
+theProposedProtocolVersion = Update.ProtocolVersion 1 0 
 
 -- | The software version proposed as part of the hard-fork smoke test
 --
