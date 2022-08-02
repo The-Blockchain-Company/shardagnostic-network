@@ -102,7 +102,7 @@ mkBccProtocolInfo genesisCole signatureThreshold genesisSophie genesisAurum init
       ProtocolParamsCole {
           coleGenesis                = genesisCole
         , colePbftSignatureThreshold = signatureThreshold
-        , coleProtocolVersion        = Cole.Update.ProtocolVersion 1 2 0
+        , coleProtocolVersion        = Cole.Update.ProtocolVersion 1 2
         , coleSoftwareVersion        = Cole.Update.SoftwareVersion (Cole.Update.ApplicationName "db-analyser") 2
         , coleLeaderCredentials      = Nothing
         , coleMaxTxCapacityOverrides = TxLimits.mkOverrides TxLimits.noOverridesMeasure
