@@ -195,7 +195,7 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/bcc-base
-  tag: 0e8a53a9d98f02563d62ec40095298ddad80ab25
+  tag: f6b3923ac0fb162098050f67dcbc31f6d721b22d
   --sha256:
   subdir:
     base-deriving-via
@@ -253,7 +253,7 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/The-Blockchain-Company/bcc-crypto
-  tag: b3b92d41a90e1dccd7498be7580ab6a3be627d21
+  tag: ce2f7994556490b169914f8d818fb9ef6149211f
   --sha256: 
 
 -- Drops an instance breaking the Zerepoch code. Should be released to Hackage
