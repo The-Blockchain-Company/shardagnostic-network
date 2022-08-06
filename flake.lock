@@ -264,10 +264,10 @@
       "flake": false,
       "locked": {
         "lastModified": 1644395812,
-        "narHash": "sha256-BVFk/BEsTLq5MMZvdy3ZYHKfaS3dHrsKh4+tb5t5b58=",
+        "narHash": "sha256-UTuX0MA59UEGxdPbpYPJYj80QAoqD27xGCsYfJjfaok=",
         "owner": "The-Blockchain-Company",
         "repo": "nix-tools",
-        "rev": "d847c63b99bbec78bf83be2a61dc9f09b8a9ccc1",
+        "rev": "03f3967e77404c326d07fa02dcac2d56fc195adb",
         "type": "github"
       },
       "original": {
