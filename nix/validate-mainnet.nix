@@ -6,8 +6,8 @@
 let
   immutableDBStr = if onlyImmutableDB then "--onlyImmutableDB" else "";
   bcc-mainnet-config = pkgs.fetchurl {
-    url = https://raw.githubusercontent.com/The-Blockchain-Company/bcc-node/114ee7f3b1cb55d384f928552c6b0871d4ca27ff/configuration/mainnet-genesis.json;
-    sha256 = "1ahkdhqh07096law629r1d5jf6jz795rcw6c4vpgdi5j6ysb6a2g";
+    url = https://raw.githubusercontent.com/The-Blockchain-Company/bcc-node/8abc5ff126a180b5b00ce3a79636cc5a94e0007c/configuration/mainnet-genesis.json;
+    sha256 = "f2c34e59515e043556d5e4bdb9a32b261005a0cdc18a3c54602f06c842a76060";
   };
   bcc-mainnet-mirror = pkgs.fetchFromGitHub {
     owner = "The-Blockchain-Company";

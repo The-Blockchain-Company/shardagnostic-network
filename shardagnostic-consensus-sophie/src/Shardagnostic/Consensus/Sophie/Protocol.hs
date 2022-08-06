@@ -212,7 +212,7 @@ mkTOptimumParams
   -> TOptimumParams
 mkTOptimumParams maxMajorPV initialNonce genesis = TOptimumParams {
       toptimumSlotsPerKESPeriod = SL.sgSlotsPerKESPeriod genesis
-    , toptimumVestMultiple        = SL.sgVestMultiple        genesis        
+    	, toptimumVestMultiple        = SL.sgVestMultiple        genesis
     , toptimumLeaderF           = SL.sgActiveSlotCoeff   genesis
     , toptimumMaxKESEvo         = SL.sgMaxKESEvolutions  genesis
     , toptimumQuorum            = SL.sgUpdateQuorum      genesis
