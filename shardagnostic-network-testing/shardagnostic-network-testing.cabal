@@ -6,8 +6,8 @@ license-files:
   LICENSE
   NOTICE
 copyright:           2021 The-Blockchain-Company
-author:              Alexander Vieth, Marcin Szamotulski, rmourey_jr Coutts, Karl Knuttson
-maintainer:
+author:              Robert Mourey Jr
+maintainer:	     rmourey_jr@blockchain-company.io
 category:            Network
 build-type:          Simple
 extra-source-files:  ChangeLog.md

@@ -6,9 +6,9 @@ license:             Apache-2.0
 license-files:
   LICENSE
   NOTICE
-copyright:           2021 The-Blockchain-Company
-author:              Alexander Vieth, rmourey_jr Coutts, Marcin Szamotulski
-maintainer:          alex@well-typed.com, duncan@well-typed.com, marcin.szamotulski@blockchain-company.io
+copyright:           2021 The-Blockchain-Company.io LLC
+author:              Robert Mourey Jr
+maintainer:          rmourey_jr@blockchain-company.io
 category:            Control
 build-type:          Simple
 
