@@ -138,7 +138,7 @@ mkColeProtocolInfo genesisConfig signatureThreshold =
     protocolInfoCole $ ProtocolParamsCole {
         coleGenesis                = genesisConfig
       , colePbftSignatureThreshold = signatureThreshold
-      , coleProtocolVersion        = Update.ProtocolVersion 1 0 0
+      , coleProtocolVersion        = Update.ProtocolVersion 1 0
       , coleSoftwareVersion        = Update.SoftwareVersion (Update.ApplicationName "db-analyser") 2
       , coleLeaderCredentials      = Nothing
       , coleMaxTxCapacityOverrides = TxLimits.mkOverrides TxLimits.noOverridesMeasure
