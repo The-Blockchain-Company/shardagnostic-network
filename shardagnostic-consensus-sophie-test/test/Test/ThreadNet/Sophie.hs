@@ -312,7 +312,7 @@ prop_simple_real_toptimum_convergence TestSetup
 
     -- Which protocol version to endorse
     nextProtVer :: SL.ProtVer
-    nextProtVer = incrementMinorProtVer genesisProtVer
+    nextProtVer = incrementSentryProtVer genesisProtVer
 
     -- Does the final ledger state have the expected @d@ value when ticked over
     -- to the 'sentinel' slot?

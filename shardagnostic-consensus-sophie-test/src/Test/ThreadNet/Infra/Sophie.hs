@@ -17,7 +17,7 @@ module Test.ThreadNet.Infra.Sophie (
   , KesConfig (..)
   , coreNodeKeys
   , genCoreNode
-  , incrementMinorProtVer
+  , incrementSentryProtVer
   , initialEntropicPerCoreNode
   , mkCredential
   , mkEpochSize
@@ -117,12 +117,15 @@ instance Arbitrary DecentralizationParam where
       n <- choose (0, d)
       pure $ DecentralizationParam $ fromInteger n / fromInteger d
 
-{-------------------------------------------------------------------------------
+{-----------------------------------------------------------------------------
   Important constants
 -------------------------------------------------------------------------------}
 
 toptimumSlotLength :: SlotLength
 toptimumSlotLength = slotLengthFromSec 2
+
+toptimumVestMultiple :: VestMultiple
+toptimumVestMultiple =
 
 {-------------------------------------------------------------------------------
   CoreNode secrets/etc
@@ -133,6 +136,7 @@ data CoreNode c = CoreNode {
     , cnDelegateKey :: !(SL.SignKeyDSIGN c)
       -- ^ Cold delegate key. The hash of the corresponding verification
       -- (public) key will be used as the payment credential.
+    , cnVestedDelagateKey :: !(SL.SignKeyDSIGN c)
     , cnStakingKey  :: !(SL.SignKeyDSIGN c)
       -- ^ The hash of the corresponding verification (public) key will be
       -- used as the staking credential.
@@ -153,21 +157,23 @@ data CoreNodeKeyInfo c = CoreNodeKeyInfo
   }
 
 coreNodeKeys :: forall c. OptimumCrypto c => CoreNode c -> CoreNodeKeyInfo c
-coreNodeKeys CoreNode{cnGenesisKey, cnDelegateKey, cnStakingKey} =
+coreNodeKeys CoreNode{cnGenesisKey, cnDelegateKey, cnVestKey, cnVestedDelagateKey cnStakingKey} =
     CoreNodeKeyInfo {
         cnkiCoreNode =
           ( mkKeyPair cnGenesisKey
+            mkKeyPair cnVestKey
           , Gen.AllIssuerKeys
             { Gen.cold = mkKeyPair cnDelegateKey
               -- 'CoreNodeKeyInfo' is used for all sorts of generators, not
               -- only transaction generators. To generate transactions we
               -- don't need all these keys, hence the 'error's.
+            , Gen.coldv = mkKeyPair cnVestedDelagateKey
             , Gen.vrf  = error "vrf used while generating transactions"
             , Gen.hot  = error "hot used while generating transactions"
             , Gen.hk   = error "hk used while generating transactions"
             }
           )
-      , cnkiKeyPair = (mkKeyPair cnDelegateKey, mkKeyPair cnStakingKey)
+      , cnkiKeyPair = (mkKeyPair cnDelegateKey, mkKeyPair cnVestedDelagate, mkKeyPair cnStakingKey)
       }
 
 genCoreNode ::
@@ -177,6 +183,8 @@ genCoreNode ::
 genCoreNode startKESPeriod = do
     genKey <- genKeyDSIGN <$> genSeed (seedSizeDSIGN (Proxy @(DSIGN c)))
     delKey <- genKeyDSIGN <$> genSeed (seedSizeDSIGN (Proxy @(DSIGN c)))
+    vesKey <- genKeyDSIGN <$> genSeed (seedSizeDSIGN (Proxy @(DSIGN c)))
+    vsdKey <- genKeyDSIGN <$> genSeed (seedSizeDSIGN (Proxy @(DSIGN c)))
     stkKey <- genKeyDSIGN <$> genSeed (seedSizeDSIGN (Proxy @(DSIGN c)))
     vrfKey <- genKeyVRF   <$> genSeed (seedSizeVRF   (Proxy @(VRF   c)))
     kesKey <- genKeyKES   <$> genSeed (seedSizeKES   (Proxy @(KES   c)))
@@ -184,6 +192,7 @@ genCoreNode startKESPeriod = do
         sigma  = Bcc.Ledger.Keys.signedDSIGN
           @c
           delKey
+          vsdKey
           (SL.OCertSignable kesPub certificateIssueNumber startKESPeriod)
     let ocert = SL.OCert {
             ocertVkHot     = kesPub
@@ -194,6 +203,8 @@ genCoreNode startKESPeriod = do
     return CoreNode {
         cnGenesisKey  = genKey
       , cnDelegateKey = delKey
+      , cnVestKey     = vesKey
+      , cnVestedDelagateKey = vsdKey
       , cnStakingKey  = stkKey
       , cnVRF         = vrfKey
       , cnKES         = kesKey
@@ -209,12 +220,13 @@ genCoreNode startKESPeriod = do
     genSeed = fmap mkSeedFromBytes . genBytes
 
 mkLeaderCredentials :: OptimumCrypto c => CoreNode c -> TOptimumLeaderCredentials c
-mkLeaderCredentials CoreNode { cnDelegateKey, cnVRF, cnKES, cnOCert } =
+mkLeaderCredentials CoreNode { cnDelegateKey, cnVestedDelagateKey cnVRF, cnKES, cnOCert } =
     TOptimumLeaderCredentials {
         toptimumLeaderCredentialsInitSignKey = cnKES
       , toptimumLeaderCredentialsCanBeLeader = TOptimumCanBeLeader {
           toptimumCanBeLeaderOpCert     = cnOCert
         , toptimumCanBeLeaderColdVerKey = SL.VKey $ deriveVerKeyDSIGN cnDelegateKey
+        , toptimumCanBeLeaderCold
         , toptimumCanBeLeaderSignKeyVRF = cnVRF
         }
       , toptimumLeaderCredentialsLabel       = "ThreadNet"
@@ -278,6 +290,7 @@ mkGenesisConfig
   -> SecurityParam
   -> Rational  -- ^ Initial active slot coefficient
   -> DecentralizationParam
+  -> Word64 -- ^ Initial vest multiple
   -> Word64
      -- ^ Max Entropic supply, must be >= #coreNodes * initialEntropicPerCoreNode
   -> SlotLength
@@ -291,6 +304,8 @@ mkGenesisConfig pVer k f d maxEntropicSupply slotLength kesCfg coreNodes =
       sgSystemStart           = dawnOfTime
     , sgNetworkMagic          = 0
     , sgNetworkId             = networkId
+    , sgVestMultiple	      = vestMultiple
+    , sgVestedDelegs          = coreNodesToGenesisMapping
     , sgActiveSlotsCoeff      = unsafeBoundRational f
     , sgSecurityParam         = maxRollbacks k
     , sgEpochLength           = mkEpochSize k f
@@ -333,7 +348,7 @@ mkGenesisConfig pVer k f d maxEntropicSupply slotLength kesCfg coreNodes =
       }
 
     coreNodesToGenesisMapping ::
-         Map (SL.KeyHash 'SL.Genesis (EraCrypto era)) (SL.GenDelegPair (EraCrypto era))
+         Map (SL.KeyHash 'SL.Genesis (EraCrypto era)) (SL.GenDelegPair (EraCrypto era)) (SL.
     coreNodesToGenesisMapping  = Map.fromList
       [ let
           gkh :: SL.KeyHash 'SL.Genesis (EraCrypto era)
@@ -425,8 +440,8 @@ mkProtocolSophie genesis initialNonce protVer coreNode =
   Necessary transactions for updating the 'DecentralizationParam'
 -------------------------------------------------------------------------------}
 
-incrementMinorProtVer :: SL.ProtVer -> SL.ProtVer
-incrementMinorProtVer (SL.ProtVer major minor) = SL.ProtVer major (succ minor)
+incrementSentryProtVer :: SL.ProtVer -> SL.ProtVer
+incrementSentryProtVer (SL.ProtVer major sentry) = SL.ProtVer major (succ sentry)
 
 mkSetDecentralizationParamTxs ::
      forall c. SophieBasedEra (SophieEra c)
