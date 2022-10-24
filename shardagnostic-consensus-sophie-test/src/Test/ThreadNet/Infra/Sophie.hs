@@ -33,6 +33,7 @@ module Test.ThreadNet.Infra.Sophie (
   , mkVerKey
   , networkId
   , toptimumSlotLength
+  , toptimumVestMultiple
   ) where
 
 import           Control.Monad.Except (throwError)
@@ -125,7 +126,7 @@ toptimumSlotLength :: SlotLength
 toptimumSlotLength = slotLengthFromSec 2
 
 toptimumVestMultiple :: VestMultiple
-toptimumVestMultiple =
+toptimumVestMultiple =  TOptimumVestMultiple
 
 {-------------------------------------------------------------------------------
   CoreNode secrets/etc
